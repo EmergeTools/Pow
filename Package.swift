@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version: 5.3
 import PackageDescription
 
 let package = Package(
@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Transitions",
-            url: "https://packages.movingparts.io/binaries/transitions/0.0.2/Transitions.xcframework.zip",
-            checksum: "bb70c4e731c0bb63ff07e63d8afb034c104fb9d4872e0cfb15a67ac2d35fee30"
+            url: "https://packages.movingparts.io/binaries/transitions/0.0.3/Transitions.xcframework.zip",
+            checksum: "8142eaa78b652055ef8af0f0a8ef2d41ee40d1d0430567e5c0ee3b5a8197153e"
         ),
     ]
 )
