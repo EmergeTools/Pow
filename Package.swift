@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Transitions",
-            url: "https://packages.movingparts.io/binaries/transitions/0.0.7/Transitions.xcframework.zip",
-            checksum: "423a15f00967395eea4221334e73df0c38b723938932dfd4eed3bb0cf3950204"
+            url: "https://packages.movingparts.io/binaries/transitions/0.0.8/Transitions.xcframework.zip",
+            checksum: "0775656d360ae125f341ead29a64368bdf4b2eeaaf463fe9e3b6ed41a4b1c489"
         ),
     ]
 )
