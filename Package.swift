@@ -2,21 +2,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "Transitions",
+    name: "Pow",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: "Transitions",
-            targets: ["Transitions"]),
+            name: "Pow",
+            targets: ["Pow"]),
     ],
     dependencies: [],
     targets: [
         .binaryTarget(
-            name: "Transitions",
-            url: "https://packages.movingparts.io/binaries/transitions/0.0.10/Transitions.xcframework.zip",
-            checksum: "1c12f798dffe2a801c61345bb188eeadb5ff90489dd05c6bd7fcdf9f48d99e1f"
+            name: "Pow",
+            url: "https://packages.movingparts.io/binaries/pow/0.0.11/Pow.xcframework.zip",
+            checksum: "db7f9e15e8f083c9434697f36b1aa3950f11118df36f97106f30c051c0d71ea6"
         ),
     ]
 )
