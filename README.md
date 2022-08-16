@@ -17,6 +17,8 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 - [Xcode Previews depending on Pow are broken in Xcode 14b5](https://developer.apple.com/forums/thread/707569).  
   **Suggested Solution:** Download, unpack and embed the [`.xcframework` referenced in the `Package.swift`](./Package.swift) file.
+- Preview videos in the README don't render in Chrome, Firefox https://github.com/movingparts-io/Pow/issues/1.
+  **Suggested Solution:** Open this page in Safari.
 
 # Overview
 
