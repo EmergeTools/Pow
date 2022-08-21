@@ -40,6 +40,25 @@ The transition is only performed on insertion and takes 1.4 seconds.
 static var anvil: AnyTransition
 ```
 
+## Blinds
+
+A transition that reveals the view as if it was behind window blinds.
+
+```swift
+static var blinds: AnyTransition
+```
+
+A transition that reveals the view as if it was behind window blinds.
+
+Parameters:
+- `slatWidth`: The width of each slat.
+- `style`: The style of blinds, either `.venetian` or `.vertical`.
+- `isStaggered`: Whether all slats opens at the same time or in sequence.
+
+```swift
+static func blinds(slatWidth: CGFloat, style: BlindsStyle = .venetian, isStaggered: Bool = false) -> AnyTransition
+```
+
 ## Blur 
 
 A transition from blurry to sharp on insertion, and from sharp to blurry
