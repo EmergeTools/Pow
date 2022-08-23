@@ -265,7 +265,7 @@ The transition is only performed on insertion.
 - Parameter `style`: The style to use for the effect.
 
 ```swift
-static func pop(_ style: AnyShapeStyle) -> AnyTransition
+static func pop<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
 ## Poof
