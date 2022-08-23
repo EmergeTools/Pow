@@ -268,6 +268,16 @@ The transition is only performed on insertion.
 static func pop(_ style: AnyShapeStyle) -> AnyTransition
 ```
 
+## Poof
+
+A transition that removes the view in a dissolving cartoon style cloud.
+
+The transition is only performed on removal and takes 0.4 seconds.
+
+```swift
+static var poof: AnyTransition
+```
+
 ## Rotate3D
 
 A transition that inserts by rotating from the specified rotation, and
