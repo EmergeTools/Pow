@@ -357,6 +357,16 @@ The transition is only performed on removal.
 static var vanish: AnyTransition
 ```
 
+A transition that dissolves the view into many small particles.
+
+The transition is only performed on removal.
+
+- Parameter `style`: The style to use for the particles.
+
+```swift
+static func vanish<S: ShapeStyle>(_ style: S) -> AnyTransition
+```
+
 ## Wipe
 
 A transition using a sweep from the specified edge on insertion, and
