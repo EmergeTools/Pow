@@ -1,13 +1,11 @@
-![](./previews/og-image.png)
+![](./images/og-image.png)
 
 # Pow
 
 Delightful SwiftUI transitions for your app.
 
 > **Note**
-> This is a Beta version.
->
-> Pow is free while in Beta and will be a simple one-time purchase after that.
+> Pow is free to test and evaluate. To deploy an app using it to the App Store, you need to [purchase a license](https://movingparts.io/pow).
 
 # Installation
 
@@ -17,8 +15,6 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 - [Xcode Previews depending on Pow are broken in Xcode 14b5](https://developer.apple.com/forums/thread/707569).  
   **Suggested Solution:** Download, unpack and embed the [`.xcframework` referenced in the `Package.swift`](./Package.swift) file.
-- Preview videos in the README don't render in Chrome, Firefox https://github.com/movingparts-io/Pow/issues/1.
-  **Suggested Solution:** Open this page in Safari.
 
 # Overview
 
@@ -30,7 +26,7 @@ myView.transition(.movingParts.anvil)
 
 ## Anvil
 
-![A view dropping down like an avil, hitting the ground in a cloud of dust.](./previews/anvil.mov)
+[Preview](https://movingparts.io/pow/#anvil)
 
 A transition that drops the view down from the top.
 
@@ -41,6 +37,8 @@ static var anvil: AnyTransition
 ```
 
 ## Blinds
+
+[Preview](https://movingparts.io/pow/#blinds)
 
 A transition that reveals the view as if it was behind window blinds.
 
@@ -59,7 +57,9 @@ Parameters:
 static func blinds(slatWidth: CGFloat, style: BlindsStyle = .venetian, isStaggered: Bool = false) -> AnyTransition
 ```
 
-## Blur 
+## Blur
+
+[Preview ](https://movingparts.io/pow/#blur)
 
 A transition from blurry to sharp on insertion, and from sharp to blurry
 on removal.
@@ -70,7 +70,7 @@ static var blur: AnyTransition
 
 ## Boing
 
-![A view dropping down, deforming as it hits its resing position as if made from jelly.](./previews/boing.mov)
+[Preview](https://movingparts.io/pow/#boing)
 
 A transition that moves the view down with any overshoot resulting in an
 elastic deformation of the view.
@@ -88,6 +88,8 @@ static func boing(edge: Edge) -> AnyTransition
 
 ## Clock
 
+[Preview](https://movingparts.io/pow/#clock)
+
 A transition using a clockwise sweep around the centerpoint of the view.
 
 ```swift
@@ -103,6 +105,8 @@ static func clock(blurRadius: CGFloat)  -> AnyTransition
 ```
 
 ## Flicker
+
+[Preview](https://movingparts.io/pow/#flicker)
 
 A transition that toggles the visibility of the view multiple times
 before settling.
@@ -122,7 +126,7 @@ static func flicker(count: Int) -> AnyTransition
 
 ## Flip
 
-![A view rotating into view.](./previews/flip.mov)
+[Preview](https://movingparts.io/pow/#flip)
 
 A transition that inserts by rotating the view towards the viewer, and
 removes by rotating the view away from the viewer.
@@ -135,6 +139,8 @@ static var flip: AnyTransition
 ```
 
 ## Glare
+
+[Preview](https://movingparts.io/pow/#glare)
 
 A transitions that shows the view by combining a diagonal wipe with a
 white streak.
@@ -153,8 +159,6 @@ represents sweeping towards the top edge.
 In this example, the removal of the view is using a glare with an
 exponential ease-in curve, combined with a anticipating scale animation,
 making for a more dramatic exit.
-
-![A view that appears with a white steak and disappears with the same streak, combined with a rising up animation.](./previews/glare.mov)
 
 ```swift
 infoBox
@@ -183,6 +187,8 @@ static func glare(angle: Angle, color: Color = .white) -> AnyTransition
 
 ## Iris
 
+[Preview](https://movingparts.io/pow/#iris)
+
 A transition that takes the shape of a growing circle when inserting,
 and a shrinking circle when removing.
 
@@ -195,6 +201,8 @@ static func iris(origin: UnitPoint = .center, blurRadius: CGFloat = 0) -> AnyTra
 ```
 
 ## Move
+
+[Preview](https://movingparts.io/pow/#move)
 
 A transition that moves the view from the specified edge of the on
 insertion and towards it on removal.
@@ -227,7 +235,7 @@ static func move(angle: Angle) -> AnyTransition
 
 ## Pop
 
-![A view that appears following a ripple effect and colored particles.](./previews/pop.mov)
+[Preview](https://movingparts.io/pow/#pop)
 
 A transition that shows a view with a ripple effect and a flurry of
 tint-colored particles.
@@ -270,6 +278,8 @@ static func pop<S: ShapeStyle>(_ style: S) -> AnyTransition
 
 ## Poof
 
+[Preview](https://movingparts.io/pow/#poof)
+
 A transition that removes the view in a dissolving cartoon style cloud.
 
 The transition is only performed on removal and takes 0.4 seconds.
@@ -285,8 +295,6 @@ removes by rotating to the specified rotation in three dimensions.
 
 In this example, the view is rotated 90˚ about the y axis around
 its bottom edge as if it was rising from lying on its back face:
-
-![A view that raises up from lying on its back, overshooting as it does.](./previews/rotate3d.mov)
 
 ```swift
 Text("Hello")
@@ -317,7 +325,7 @@ static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat),
 
 ## Skid
 
-![A sliding in from the left, overshowing and deforming as it moves.](./previews/skid.mov)
+[Preview](https://movingparts.io/pow/#skid)
 
 A transition that moves the view in from its leading edge with any
 overshoot resulting in an elastic deformation of the view.
@@ -338,6 +346,8 @@ static func skid(direction: SkidDirection) -> AnyTransition
 
 ## Swoosh
 
+[Preview](https://movingparts.io/pow/#swoosh)
+
 A three-dimensional transition from the back of the towards the front
 during insertion and from the front towards the back during removal.
 
@@ -347,7 +357,7 @@ static var swoosh: AnyTransition
 
 ## Vanish
 
-![A view that dissolves into many small particles.](./previews/vanish.mov)
+[Preview](https://movingparts.io/pow/#vanish)
 
 A transition that dissolves the view into many small particles.
 
@@ -368,6 +378,8 @@ static func vanish<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
 ## Wipe
+
+[Preview](https://movingparts.io/pow/#wipe)
 
 A transition using a sweep from the specified edge on insertion, and
 towards it on removal.
