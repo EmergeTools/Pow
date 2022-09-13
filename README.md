@@ -124,6 +124,17 @@ before settling.
 static func flicker(count: Int) -> AnyTransition
 ```
 
+## Film Exposure
+
+[Preview](https://movingparts.io/pow/#film-exposure)
+
+A transition from completely dark to fully visible on insertion, and
+from fully visible to completely dark on removal.
+
+```swift
+static var filmExposure: AnyTransition
+```
+
 ## Flip
 
 [Preview](https://movingparts.io/pow/#flip)
