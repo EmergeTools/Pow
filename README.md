@@ -385,6 +385,9 @@ A transition that dissolves the view into many small particles.
 
 The transition is only performed on removal.
 
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms by default.
+
 ```swift
 static var vanish: AnyTransition
 ```
@@ -392,6 +395,9 @@ static var vanish: AnyTransition
 A transition that dissolves the view into many small particles.
 
 The transition is only performed on removal.
+
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms by default.
 
 - Parameter `style`: The style to use for the particles.
 
