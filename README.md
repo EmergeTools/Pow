@@ -124,6 +124,17 @@ before settling.
 static func flicker(count: Int) -> AnyTransition
 ```
 
+## Film Exposure
+
+[Preview](https://movingparts.io/pow/#film-exposure)
+
+A transition from completely dark to fully visible on insertion, and
+from fully visible to completely dark on removal.
+
+```swift
+static var filmExposure: AnyTransition
+```
+
 ## Flip
 
 [Preview](https://movingparts.io/pow/#flip)
@@ -323,6 +334,17 @@ Text("Hello")
 static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> AnyTransition
 ```
 
+## Snapshot
+
+[Preview](https://movingparts.io/pow/#snapshot)
+
+A transition from completely bright to fully visible on insertion, and
+from fully visible to completely bright on removal.
+
+```swift
+static var snapshot: AnyTransition
+```
+
 ## Skid
 
 [Preview](https://movingparts.io/pow/#skid)
@@ -363,6 +385,9 @@ A transition that dissolves the view into many small particles.
 
 The transition is only performed on removal.
 
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms by default.
+
 ```swift
 static var vanish: AnyTransition
 ```
@@ -370,6 +395,9 @@ static var vanish: AnyTransition
 A transition that dissolves the view into many small particles.
 
 The transition is only performed on removal.
+
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms by default.
 
 - Parameter `style`: The style to use for the particles.
 
