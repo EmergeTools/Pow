@@ -336,13 +336,13 @@ static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat),
 
 ## Snapshot
 
-[Preview](https://movingparts.io/pow/#film-exposure)
+[Preview](https://movingparts.io/pow/#snapshot)
 
 A transition from completely bright to fully visible on insertion, and
 from fully visible to completely bright on removal.
 
 ```swift
-static var filmExposure: AnyTransition
+static var snapshot: AnyTransition
 ```
 
 ## Skid
