@@ -334,6 +334,17 @@ Text("Hello")
 static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> AnyTransition
 ```
 
+## Snapshot
+
+[Preview](https://movingparts.io/pow/#film-exposure)
+
+A transition from completely bright to fully visible on insertion, and
+from fully visible to completely bright on removal.
+
+```swift
+static var filmExposure: AnyTransition
+```
+
 ## Skid
 
 [Preview](https://movingparts.io/pow/#skid)
