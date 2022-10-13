@@ -2,7 +2,7 @@
 
 # Pow
 
-Delightful SwiftUI transitions for your app.
+Delightful SwiftUI effects for your app.
 
 > **Note**
 > Pow is free to test and evaluate. To deploy an app using it to the App Store, you need to [purchase a license](https://movingparts.io/pow).
@@ -18,17 +18,162 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 # Overview
 
+Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
+
+## Change Effects
+
+Change Effects are effects that will trigger a visual or haptic every time a value changes.
+
+Use the `changeEffect` modifier and pass in an `AnyChangeEffect` as well as a value to watch for changes.
+
+```swift
+Button {
+    post.toggleLike()
+} label: {
+    Label(post.likes.formatted(), systemName: "heart.fill")
+}
+.changeEffect(.spray { heart }, value: post.likes, isEnabled: post.isLiked)
+.tint(post.isLiked ? .red : .gray)
+```
+
+You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Ping](#ping), [Rise](#rise), [Shake](#shake), [Shine](#shine), and [Spin](#spin).
+
+### Spray
+
+An effect that emits multiple particles in different shades and sizes moving up from the origin point.
+
+```swift
+likeButton
+  .changeEffect(
+    .spray(origin: .center) { Image(systemName: "heart.fill") },
+    value: likes
+  )
+```
+
+- Parameters:
+  - `origin`: The origin of the particles.
+  - `particles`: The particles to emit.
+
+```swift
+static func spray(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
+```
+
+### Haptic Feedback
+
+Triggers the given haptic feedback type whenever a value changes.
+
+- `feedback`: The feedback type beiged triggered.
+
+```swift
+static func hapticFeedback(_ feedback: UINotificationFeedbackGenerator.FeedbackType) -> AnyChangeEffect
+```
+
+### Jump
+
+Makes the view jump the given height and then bounces a few times before settling.
+
+- `height`: The height of the jump.
+
+```swift
+static func jump(height: CGFloat) -> AnyChangeEffect
+```
+
+### Ping
+
+Adds one or more shapes that slowly grow and fade-out behind the view.
+
+The shape will be colored by the current tint style.
+
+- Parameters:
+  - `shape`: The shape to use for the effect.
+  - `count`: The number of shapes to emit.
+
+```swift
+  static func ping(shape: some InsettableShape, count: Int) -> AnyChangeEffect
+```
+
+ An effect that adds one or more shapes that slowly grow and fade-out behind the view.
+ 
+ - Parameters:
+   - `shape`: The shape to use for the effect.
+   - `style`: The style to use for the effect.
+   - `count`: The number of shapes to emit.
+
+```swift
+static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int) -> AnyChangeEffect
+```
+
+### Rise
+
+An effect that emits the provided particles from the origin point and slowly float up while moving side to side.
+
+- Parameters:
+  - `origin`: The origin of the particle.
+  - `particles`: The particles to emit.
+
+```swift
+static func rise(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
+```
+
+### Shake
+
+Shakes the view when a change happens.
+
+```swift
+static var shake: AnyChangeEffect
+```
+
+An effect that shakes the view when a change happens.
+
+- `rate`: The rate of the shake.
+
+```swift
+static func shake(rate: ShakeRate) -> AnyChangeEffect
+```
+
+### Shine
+
+Highlights the view with a shine moving over the view.
+
+The shine moves from the top leading edge to bottom trailing edge.
+
+```swift
+static var shine: AnyChangeEffect
+```
+
+### Spin
+
+Spins the view around the given axis when a change happens.
+
+```swift
+static var spin: AnyChangeEffect
+```
+
+Spins the view around the given axis when a change happens.
+
+- Parameters:
+  - axis: The x, y and z elements that specify the axis of rotation.
+  - anchor: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
+  - anchorZ: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
+  - perspective: The relative vanishing point with a default of 1 / 6 for this rotation.
+
+```swift
+static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6) -> AnyChangeEffect
+```
+
+## Transitions
+
 All transitions are namespaced under the `movingParts` static variable, e.g.
 
 ```swift
 myView.transition(.movingParts.anvil)
 ```
 
-## Anvil
+### Anvil
 
 [Preview](https://movingparts.io/pow/#anvil)
 
-A transition that drops the view down from the top.
+A transition that drops the view down from the top with matching haptic feedback.
 
 The transition is only performed on insertion and takes 1.4 seconds.
 
@@ -36,7 +181,7 @@ The transition is only performed on insertion and takes 1.4 seconds.
 static var anvil: AnyTransition
 ```
 
-## Blinds
+### Blinds
 
 [Preview](https://movingparts.io/pow/#blinds)
 
@@ -57,7 +202,7 @@ Parameters:
 static func blinds(slatWidth: CGFloat, style: BlindsStyle = .venetian, isStaggered: Bool = false) -> AnyTransition
 ```
 
-## Blur
+### Blur
 
 [Preview ](https://movingparts.io/pow/#blur)
 
@@ -68,7 +213,7 @@ on removal.
 static var blur: AnyTransition
 ```
 
-## Boing
+### Boing
 
 [Preview](https://movingparts.io/pow/#boing)
 
@@ -86,7 +231,7 @@ any overshoot resulting in an elastic deformation of the view.
 static func boing(edge: Edge) -> AnyTransition
 ```
 
-## Clock
+### Clock
 
 [Preview](https://movingparts.io/pow/#clock)
 
@@ -104,7 +249,7 @@ A transition using a clockwise sweep around the centerpoint of the view.
 static func clock(blurRadius: CGFloat)  -> AnyTransition
 ```
 
-## Flicker
+### Flicker
 
 [Preview](https://movingparts.io/pow/#flicker)
 
@@ -124,7 +269,7 @@ before settling.
 static func flicker(count: Int) -> AnyTransition
 ```
 
-## Film Exposure
+### Film Exposure
 
 [Preview](https://movingparts.io/pow/#film-exposure)
 
@@ -135,7 +280,7 @@ from fully visible to completely dark on removal.
 static var filmExposure: AnyTransition
 ```
 
-## Flip
+### Flip
 
 [Preview](https://movingparts.io/pow/#flip)
 
@@ -149,7 +294,7 @@ removes by rotating the view away from the viewer.
 static var flip: AnyTransition
 ```
 
-## Glare
+### Glare
 
 [Preview](https://movingparts.io/pow/#glare)
 
@@ -196,7 +341,7 @@ infoBox
 static func glare(angle: Angle, color: Color = .white) -> AnyTransition
 ```
 
-## Iris
+### Iris
 
 [Preview](https://movingparts.io/pow/#iris)
 
@@ -211,7 +356,7 @@ and a shrinking circle when removing.
 static func iris(origin: UnitPoint = .center, blurRadius: CGFloat = 0) -> AnyTransition
 ```
 
-## Move
+### Move
 
 [Preview](https://movingparts.io/pow/#move)
 
@@ -244,7 +389,7 @@ Text("Hello")
 static func move(angle: Angle) -> AnyTransition
 ```
 
-## Pop
+### Pop
 
 [Preview](https://movingparts.io/pow/#pop)
 
@@ -287,7 +432,7 @@ The transition is only performed on insertion.
 static func pop<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
-## Poof
+### Poof
 
 [Preview](https://movingparts.io/pow/#poof)
 
@@ -299,7 +444,7 @@ The transition is only performed on removal and takes 0.4 seconds.
 static var poof: AnyTransition
 ```
 
-## Rotate3D
+### Rotate3D
 
 A transition that inserts by rotating from the specified rotation, and
 removes by rotating to the specified rotation in three dimensions.
@@ -334,7 +479,7 @@ Text("Hello")
 static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> AnyTransition
 ```
 
-## Snapshot
+### Snapshot
 
 [Preview](https://movingparts.io/pow/#snapshot)
 
@@ -345,7 +490,7 @@ from fully visible to completely bright on removal.
 static var snapshot: AnyTransition
 ```
 
-## Skid
+### Skid
 
 [Preview](https://movingparts.io/pow/#skid)
 
@@ -366,7 +511,7 @@ in an elastic deformation of the view.
 static func skid(direction: SkidDirection) -> AnyTransition
 ```
 
-## Swoosh
+### Swoosh
 
 [Preview](https://movingparts.io/pow/#swoosh)
 
@@ -377,7 +522,7 @@ during insertion and from the front towards the back during removal.
 static var swoosh: AnyTransition
 ```
 
-## Vanish
+### Vanish
 
 [Preview](https://movingparts.io/pow/#vanish)
 
@@ -386,7 +531,7 @@ A transition that dissolves the view into many small particles.
 The transition is only performed on removal.
 
 > **Note:**
-> This transition will use an ease-out animation with a duration of 900ms by default.
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
 
 ```swift
 static var vanish: AnyTransition
@@ -397,7 +542,7 @@ A transition that dissolves the view into many small particles.
 The transition is only performed on removal.
 
 > **Note:**
-> This transition will use an ease-out animation with a duration of 900ms by default.
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
 
 - Parameter `style`: The style to use for the particles.
 
@@ -405,7 +550,22 @@ The transition is only performed on removal.
 static func vanish<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
-## Wipe
+A transition that dissolves the view into many small particles following a given shape.
+
+The transition is only performed on removal.
+
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
+
+- Parameter `style`: The style to use for the particles.
+- Parameter `mask`: The mask that determines where particles should be placed.
+- Parameter `eoFill`: A Boolean that indicates whether the shape is interpreted with the even-odd winding number rule.
+
+```swift
+static func vanish<T: ShapeStyle, S: Shape>(_ style: T, mask: S, eoFill: Bool = false) -> AnyTransition
+```
+
+### Wipe
 
 [Preview](https://movingparts.io/pow/#wipe)
 
