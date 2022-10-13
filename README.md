@@ -472,7 +472,7 @@ A transition that dissolves the view into many small particles.
 The transition is only performed on removal.
 
 > **Note:**
-> This transition will use an ease-out animation with a duration of 900ms by default.
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
 
 ```swift
 static var vanish: AnyTransition
@@ -483,12 +483,27 @@ A transition that dissolves the view into many small particles.
 The transition is only performed on removal.
 
 > **Note:**
-> This transition will use an ease-out animation with a duration of 900ms by default.
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
 
 - Parameter `style`: The style to use for the particles.
 
 ```swift
 static func vanish<S: ShapeStyle>(_ style: S) -> AnyTransition
+```
+
+A transition that dissolves the view into many small particles following a given shape.
+
+The transition is only performed on removal.
+
+> **Note:**
+> This transition will use an ease-out animation with a duration of 900ms if the current `Animation` is `.default`.
+
+- Parameter `style`: The style to use for the particles.
+- Parameter `mask`: The mask that determines where particles should be placed.
+- Parameter `eoFill`: A Boolean that indicates whether the shape is interpreted with the even-odd winding number rule.
+
+```swift
+static func vanish<T: ShapeStyle, S: Shape>(_ style: T, mask: S, eoFill: Bool = false) -> AnyTransition
 ```
 
 ### Wipe
