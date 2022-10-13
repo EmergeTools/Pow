@@ -40,42 +40,79 @@ You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedb
 
 ### Spray
 
-Emits multiple particles in different shades and sizes moving up from the origin point.
+An effect that emits multiple particles in different shades and sizes moving up from the origin point.
 
 ```swift
-.spray(origin: .center) { Image(systemName: "heart.fill") }
+likeButton
+  .changeEffect(
+    .spray(origin: .center) { Image(systemName: "heart.fill") },
+    value: likes
+  )
+```
+
+- Parameters:
+  - `origin`: The origin of the particles.
+  - `particles`: The particles to emit.
+
+```swift
+static func spray(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
 ```
 
 ### Haptic Feedback
 
 Triggers the given haptic feedback type whenever a value changes.
 
+- `feedback`: The feedback type beiged triggered.
+
 ```swift
-.hapticFeedback(.success)
+static func hapticFeedback(_ feedback: UINotificationFeedbackGenerator.FeedbackType) -> AnyChangeEffect
 ```
 
 ### Jump
 
 Makes the view jump the given height and then bounces a few times before settling.
 
+- `height`: The height of the jump.
+
 ```swift
-.jump(height: 50)
+static func jump(height: CGFloat) -> AnyChangeEffect
 ```
 
 ### Ping
 
 Adds one or more shapes that slowly grow and fade-out behind the view.
 
+The shape will be colored by the current tint style.
+
+- Parameters:
+  - `shape`: The shape to use for the effect.
+  - `count`: The number of shapes to emit.
+
 ```swift
-.ping(shape: Capsule(), style: .red, count: 3)
+  static func ping(shape: some InsettableShape, count: Int) -> AnyChangeEffect
+```
+
+ An effect that adds one or more shapes that slowly grow and fade-out behind the view.
+ 
+ - Parameters:
+   - `shape`: The shape to use for the effect.
+   - `style`: The style to use for the effect.
+   - `count`: The number of shapes to emit.
+
+```swift
+static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int) -> AnyChangeEffect
 ```
 
 ### Rise
 
-Emits the provided particle from the origin point and slowly float up while moving side to side.
+An effect that emits the provided particles from the origin point and slowly float up while moving side to side.
+
+- Parameters:
+  - `origin`: The origin of the particle.
+  - `particles`: The particles to emit.
 
 ```swift
-.rise(origin: .top) { Text("+1") }
+static func rise(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
 ```
 
 ### Shake
@@ -83,15 +120,25 @@ Emits the provided particle from the origin point and slowly float up while movi
 Shakes the view when a change happens.
 
 ```swift
-.shake(rate: .fast)
+static var shake: AnyChangeEffect
+```
+
+An effect that shakes the view when a change happens.
+
+- `rate`: The rate of the shake.
+
+```swift
+static func shake(rate: ShakeRate) -> AnyChangeEffect
 ```
 
 ### Shine
 
 Highlights the view with a shine moving over the view.
 
+The shine moves from the top leading edge to bottom trailing edge.
+
 ```swift
-.shine
+static var shine: AnyChangeEffect
 ```
 
 ### Spin
@@ -99,7 +146,19 @@ Highlights the view with a shine moving over the view.
 Spins the view around the given axis when a change happens.
 
 ```swift
-.spin(axis: (x: 1, y: 0, z: 0))
+static var spin: AnyChangeEffect
+```
+
+Spins the view around the given axis when a change happens.
+
+- Parameters:
+  - axis: The x, y and z elements that specify the axis of rotation.
+  - anchor: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
+  - anchorZ: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
+  - perspective: The relative vanishing point with a default of 1 / 6 for this rotation.
+
+```swift
+static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6) -> AnyChangeEffect
 ```
 
 ## Transitions
