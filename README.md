@@ -2,7 +2,7 @@
 
 # Pow
 
-Delightful SwiftUI transitions for your app.
+Delightful SwiftUI effects for your app.
 
 > **Note**
 > Pow is free to test and evaluate. To deploy an app using it to the App Store, you need to [purchase a license](https://movingparts.io/pow).
@@ -18,13 +18,99 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 # Overview
 
+Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
+
+## Change Effects
+
+Change Effects are effects that will trigger a visual or haptic every time a value changes.
+
+Use the `changeEffect` modifier and pass in an `AnyChangeEffect` as well as a value to watch for changes.
+
+```swift
+Button {
+    post.toggleLike()
+} label: {
+    Label(post.likes.formatted(), systemName: "heart.fill")
+}
+.changeEffect(.spray { heart }, value: post.likes, isEnabled: post.isLiked)
+.tint(post.isLiked ? .red : .gray)
+```
+
+You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Ping](#ping), [Rise](#rise), [Shake](#shake), [Shine](#shine), and [Spin](#spin).
+
+### Spray
+
+Emits multiple particles in different shades and sizes moving up from the origin point.
+
+```swift
+.spray(origin: .center) { Image(systemName: "heart.fill") }
+```
+
+### Haptic Feedback
+
+Triggers the given haptic feedback type whenever a value changes.
+
+```swift
+.hapticFeedback(.success)
+```
+
+### Jump
+
+Makes the view jump the given height and then bounces a few times before settling.
+
+```swift
+.jump(height: 50)
+```
+
+### Ping
+
+Adds one or more shapes that slowly grow and fade-out behind the view.
+
+```swift
+.ping(shape: Capsule(), style: .red, count: 3)
+```
+
+### Rise
+
+Emits the provided particle from the origin point and slowly float up while moving side to side.
+
+```swift
+.rise(origin: .top) { Text("+1") }
+```
+
+### Shake
+
+Shakes the view when a change happens.
+
+```swift
+.shake(rate: .fast)
+```
+
+### Shine
+
+Highlights the view with a shine moving over the view.
+
+```swift
+.shine
+```
+
+### Spin
+
+Spins the view around the given axis when a change happens.
+
+```swift
+.spin(axis: (x: 1, y: 0, z: 0))
+```
+
+## Transitions
+
 All transitions are namespaced under the `movingParts` static variable, e.g.
 
 ```swift
 myView.transition(.movingParts.anvil)
 ```
 
-## Anvil
+### Anvil
 
 [Preview](https://movingparts.io/pow/#anvil)
 
@@ -36,7 +122,7 @@ The transition is only performed on insertion and takes 1.4 seconds.
 static var anvil: AnyTransition
 ```
 
-## Blinds
+### Blinds
 
 [Preview](https://movingparts.io/pow/#blinds)
 
@@ -57,7 +143,7 @@ Parameters:
 static func blinds(slatWidth: CGFloat, style: BlindsStyle = .venetian, isStaggered: Bool = false) -> AnyTransition
 ```
 
-## Blur
+### Blur
 
 [Preview ](https://movingparts.io/pow/#blur)
 
@@ -68,7 +154,7 @@ on removal.
 static var blur: AnyTransition
 ```
 
-## Boing
+### Boing
 
 [Preview](https://movingparts.io/pow/#boing)
 
@@ -86,7 +172,7 @@ any overshoot resulting in an elastic deformation of the view.
 static func boing(edge: Edge) -> AnyTransition
 ```
 
-## Clock
+### Clock
 
 [Preview](https://movingparts.io/pow/#clock)
 
@@ -104,7 +190,7 @@ A transition using a clockwise sweep around the centerpoint of the view.
 static func clock(blurRadius: CGFloat)  -> AnyTransition
 ```
 
-## Flicker
+### Flicker
 
 [Preview](https://movingparts.io/pow/#flicker)
 
@@ -124,7 +210,7 @@ before settling.
 static func flicker(count: Int) -> AnyTransition
 ```
 
-## Film Exposure
+### Film Exposure
 
 [Preview](https://movingparts.io/pow/#film-exposure)
 
@@ -135,7 +221,7 @@ from fully visible to completely dark on removal.
 static var filmExposure: AnyTransition
 ```
 
-## Flip
+### Flip
 
 [Preview](https://movingparts.io/pow/#flip)
 
@@ -149,7 +235,7 @@ removes by rotating the view away from the viewer.
 static var flip: AnyTransition
 ```
 
-## Glare
+### Glare
 
 [Preview](https://movingparts.io/pow/#glare)
 
@@ -196,7 +282,7 @@ infoBox
 static func glare(angle: Angle, color: Color = .white) -> AnyTransition
 ```
 
-## Iris
+### Iris
 
 [Preview](https://movingparts.io/pow/#iris)
 
@@ -211,7 +297,7 @@ and a shrinking circle when removing.
 static func iris(origin: UnitPoint = .center, blurRadius: CGFloat = 0) -> AnyTransition
 ```
 
-## Move
+### Move
 
 [Preview](https://movingparts.io/pow/#move)
 
@@ -244,7 +330,7 @@ Text("Hello")
 static func move(angle: Angle) -> AnyTransition
 ```
 
-## Pop
+### Pop
 
 [Preview](https://movingparts.io/pow/#pop)
 
@@ -287,7 +373,7 @@ The transition is only performed on insertion.
 static func pop<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
-## Poof
+### Poof
 
 [Preview](https://movingparts.io/pow/#poof)
 
@@ -299,7 +385,7 @@ The transition is only performed on removal and takes 0.4 seconds.
 static var poof: AnyTransition
 ```
 
-## Rotate3D
+### Rotate3D
 
 A transition that inserts by rotating from the specified rotation, and
 removes by rotating to the specified rotation in three dimensions.
@@ -334,7 +420,7 @@ Text("Hello")
 static func rotate3D(_ angle: Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> AnyTransition
 ```
 
-## Snapshot
+### Snapshot
 
 [Preview](https://movingparts.io/pow/#snapshot)
 
@@ -345,7 +431,7 @@ from fully visible to completely bright on removal.
 static var snapshot: AnyTransition
 ```
 
-## Skid
+### Skid
 
 [Preview](https://movingparts.io/pow/#skid)
 
@@ -366,7 +452,7 @@ in an elastic deformation of the view.
 static func skid(direction: SkidDirection) -> AnyTransition
 ```
 
-## Swoosh
+### Swoosh
 
 [Preview](https://movingparts.io/pow/#swoosh)
 
@@ -377,7 +463,7 @@ during insertion and from the front towards the back during removal.
 static var swoosh: AnyTransition
 ```
 
-## Vanish
+### Vanish
 
 [Preview](https://movingparts.io/pow/#vanish)
 
@@ -405,7 +491,7 @@ The transition is only performed on removal.
 static func vanish<S: ShapeStyle>(_ style: S) -> AnyTransition
 ```
 
-## Wipe
+### Wipe
 
 [Preview](https://movingparts.io/pow/#wipe)
 
