@@ -114,7 +114,7 @@ myView.transition(.movingParts.anvil)
 
 [Preview](https://movingparts.io/pow/#anvil)
 
-A transition that drops the view down from the top.
+A transition that drops the view down from the top with matching haptic feedback.
 
 The transition is only performed on insertion and takes 1.4 seconds.
 
