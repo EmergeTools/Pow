@@ -141,6 +141,26 @@ The shine moves from the top leading edge to bottom trailing edge.
 static var shine: AnyChangeEffect
 ```
 
+Highlights the view with a shine moving over the view.
+
+The shine moves from the top leading edge to bottom trailing edge.
+
+```swift
+static func shine(duration: Double) -> AnyChangeEffect
+```
+
+Highlights the view with a shine moving over the view.
+
+The angle is relative to the current `layoutDirection`, such that 0° represents sweeping towards the trailing edge and 90° represents sweeping towards the top edge.
+
+- Parameters:
+  - `angle`: The angle of the animation.
+  - `duration`: The duration of the animation.
+
+```swift
+static func shine(angle: Angle, duration: Double = 1.0) -> AnyChangeEffect
+```
+
 ### Spin
 
 Spins the view around the given axis when a change happens.
