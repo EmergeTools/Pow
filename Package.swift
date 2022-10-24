@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Pow",
-            url: "https://packages.movingparts.io/binaries/pow/0.1.0/Pow.xcframework.zip",
-            checksum: "27bfbae340405068387782b4f3712b58fa07225003c85c347f4d3c2122df8507"
+            url: "https://packages.movingparts.io/binaries/pow/0.1.1/Pow.xcframework.zip",
+            checksum: "5ae07875130ecb40d9310460b13da6aaa6f783d1e6e9af88b7c96a1ba32fd22a"
         ),
     ]
 )
