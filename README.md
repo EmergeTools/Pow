@@ -20,6 +20,8 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
 
+You can find previews of all effects [on the Pow website](https://movingparts.io/pow).
+
 ## Change Effects
 
 Change Effects are effects that will trigger a visual or haptic every time a value changes.
@@ -39,6 +41,8 @@ Button {
 You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Ping](#ping), [Rise](#rise), [Shake](#shake), [Shine](#shine), and [Spin](#spin).
 
 ### Spray
+
+[Preview](https://movingparts.io/pow/#spray)
 
 An effect that emits multiple particles in different shades and sizes moving up from the origin point.
 
@@ -70,6 +74,8 @@ static func hapticFeedback(_ feedback: UINotificationFeedbackGenerator.FeedbackT
 
 ### Jump
 
+[Preview](https://movingparts.io/pow/#jump)
+
 Makes the view jump the given height and then bounces a few times before settling.
 
 - `height`: The height of the jump.
@@ -79,6 +85,8 @@ static func jump(height: CGFloat) -> AnyChangeEffect
 ```
 
 ### Ping
+
+[Preview](https://movingparts.io/pow/#ping)
 
 Adds one or more shapes that slowly grow and fade-out behind the view.
 
@@ -105,6 +113,8 @@ static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int
 
 ### Rise
 
+[Preview](https://movingparts.io/pow/#rise)
+
 An effect that emits the provided particles from the origin point and slowly float up while moving side to side.
 
 - Parameters:
@@ -116,6 +126,8 @@ static func rise(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> so
 ```
 
 ### Shake
+
+[Preview](https://movingparts.io/pow/#shake)
 
 Shakes the view when a change happens.
 
@@ -133,6 +145,8 @@ static func shake(rate: ShakeRate) -> AnyChangeEffect
 
 ### Shine
 
+[Preview](https://movingparts.io/pow/#shine)
+
 Highlights the view with a shine moving over the view.
 
 The shine moves from the top leading edge to bottom trailing edge.
@@ -142,6 +156,8 @@ static var shine: AnyChangeEffect
 ```
 
 ### Spin
+
+[Preview](https://movingparts.io/pow/#spin)
 
 Spins the view around the given axis when a change happens.
 
