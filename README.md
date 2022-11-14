@@ -11,11 +11,6 @@ Delightful SwiftUI effects for your app.
 
 To add a package dependency to your Xcode project, select _File_ > _Add Package_ and enter this repository's URL (https://github.com/movingparts-io/Pow).
 
-# Known issues
-
-- [Xcode Previews depending on Pow are broken in Xcode 14b5](https://developer.apple.com/forums/thread/707569).  
-  **Suggested Solution:** Download, unpack and embed the [`.xcframework` referenced in the `Package.swift`](./Package.swift) file.
-
 # Overview
 
 Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
