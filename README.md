@@ -15,7 +15,7 @@ To add a package dependency to your Xcode project, select _File_ > _Add Package_
 
 Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
 
-You can find previews of all effects [on the Pow website](https://movingparts.io/pow).
+You can find previews of all effects [on the Pow website](https://movingparts.io/pow). If you have an iOS Developer Environment, you can check out the [Pow Example App](https://github.com/movingparts-io/Pow-Examples).
 
 ## Change Effects
 
