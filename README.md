@@ -49,22 +49,39 @@ likeButton
   )
 ```
 
+This effect respects `particleGroup()`.
+
 - Parameters:
   - `origin`: The origin of the particles.
+  - `layer`: The `ParticleLayer` on which to render the effect, default is `local`.
   - `particles`: The particles to emit.
 
 ```swift
-static func spray(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
+static func spray(origin: UnitPoint = .center, layer: ParticleLayer = .local, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
 ```
 
 ### Haptic Feedback
 
-Triggers the given haptic feedback type whenever a value changes.
+Triggers haptic feedback to communicate successes, failures, and warnings whenever a value changes.
 
-- `feedback`: The feedback type beiged triggered.
+- `notification`: The feedback type to trigger.
 
 ```swift
-static func hapticFeedback(_ feedback: UINotificationFeedbackGenerator.FeedbackType) -> AnyChangeEffect
+static func feedback(hapticNotification type: UINotificationFeedbackGenerator.FeedbackType) -> AnyChangeEffect
+```
+
+Triggers haptic feedback to simulate physical impacts whenever a value changes.
+
+- `impact`: The feedback style to trigger.
+
+```swift
+static func feedback(hapticImpact style: UIImpactFeedbackGenerator.FeedbackStyle) -> AnyChangeEffect
+```
+
+Triggers haptic feedback to indicate a change in selection whenever a value changes.
+
+```swift
+static var feedbackHapticSelection: AnyChangeEffect
 ```
 
 ### Jump
@@ -112,12 +129,15 @@ static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int
 
 An effect that emits the provided particles from the origin point and slowly float up while moving side to side.
 
+This effect respects `particleGroup()`.
+
 - Parameters:
   - `origin`: The origin of the particle.
+  - `layer`: The `ParticleLayer` on which to render the effect, default is `local`.
   - `particles`: The particles to emit.
 
 ```swift
-static func rise(origin: UnitPoint = .center, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
+static func rise(origin: UnitPoint = .center, layer: ParticleLayer = .local, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
 ```
 
 ### Shake
@@ -160,7 +180,7 @@ static func shine(duration: Double) -> AnyChangeEffect
 
 Highlights the view with a shine moving over the view.
 
-The angle is relative to the current `layoutDirection`, such that 0° represents sweeping towards the trailing edge and 90° represents sweeping towards the top edge.
+The angle is relative to the current `layoutDirection`, such that 0° represents sweeping towards the trailing edge and 90° represents sweeping towards the bottom edge.
 
 - Parameters:
   - `angle`: The angle of the animation.
@@ -168,6 +188,16 @@ The angle is relative to the current `layoutDirection`, such that 0° represents
 
 ```swift
 static func shine(angle: Angle, duration: Double = 1.0) -> AnyChangeEffect
+```
+
+### Sound Effect Feedback
+
+Triggers a sound effect as feedback whenever a value changes.
+
+- `soundEffect`: The sound effect to trigger.
+
+```swift
+static func feedback(_ soundEffect: SoundEffect) -> AnyChangeEffect
 ```
 
 ### Spin
@@ -190,6 +220,40 @@ Spins the view around the given axis when a change happens.
 
 ```swift
 static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6) -> AnyChangeEffect
+```
+
+### Delay
+
+Every change effect can be delayed to trigger the effect after some time. 
+
+```swift
+Button("Submit") { 
+    <#code#>
+}
+.buttonStyle(.borderedProminent)
+.disabled(name.isEmpty)
+.changeEffect(.shine.delay(1), value: name.isEmpty, isEnabled: !name.isEmpty)
+```
+
+- Parameters:
+  - `delay`: The delay in seconds.
+
+```swift
+func delay(_ delay: Double) -> AnyChangeEffect
+```
+
+## Particle Layer
+
+A particle layer is a context in which particle effects draw their particles.
+
+The `particleLayer(name:)` view modifier wraps the view in a particle layer with the given name.
+
+Particle effects such as `AnyChangeEffect.spray` can render their particles on this position in the view tree to avoid being clipped by their immediate ancestor.
+
+For example, certain `List` styles may clip their rows. Use `particleLayer(_:)` to render particles on top of the entire `List` or even its enclosing `NavigationStack`.
+
+```swift
+func particleLayer(name: AnyHashable) -> some View
 ```
 
 ## Transitions
@@ -255,8 +319,9 @@ elastic deformation of the view.
 static var boing: AnyTransition
 ```
 
-A transition that moves the view away towards the specified edge, with
-any overshoot resulting in an elastic deformation of the view.
+A transition that moves the view from the specified edge on insertion,    
+and towards it on removal, with any overshoot resulting in an elastic    
+deformation of the view.
 
 ```swift
 static func boing(edge: Edge) -> AnyTransition
@@ -340,8 +405,8 @@ A transitions that shows the view by combining a wipe with a colored
 streak.
 
 The angle is relative to the current `layoutDirection`, such that 0°
-represents sweeping towards the leading edge on insertion and 90°
-represents sweeping towards the top edge.
+represents sweeping towards the trailing edge on insertion and 90°
+represents sweeping towards the bottom edge.
 
 In this example, the removal of the view is using a glare with an
 exponential ease-in curve, combined with a anticipating scale animation,
@@ -400,7 +465,7 @@ static func move(edge: Edge) -> AnyTransition
 
 A transition that moves the view at the specified angle.
 
-The angle is relative to the current `layoutDirection`, such that 0° represents animating towards the leading edge on insertion and 90° represents inserting towards the top edge.
+The angle is relative to the current `layoutDirection`, such that 0° represents animating towards the trailing edge on insertion and 90° represents inserting towards the bottom edge.
 
 In this example, the view insertion is animated by moving it towards the top trailing corner and the removal is animated by moving it towards the bottom edge.
 
@@ -609,4 +674,18 @@ towards it on removal.
 
 ```swift
 static func wipe(edge: Edge, blurRadius: CGFloat = 0) -> AnyTransition
+```
+
+A transition using a sweep at the specified angle.
+
+The angle is relative to the current `layoutDirection`, such that 0° 
+represents sweeping towards the trailing edge on insertion and 90° 
+represents sweeping towards the bottom edge.
+
+- Parameters:
+  - `angle`: The angle of the animation.
+  - `blurRadius`: The radius of the blur applied to the mask.
+
+```swift
+static func wipe(angle: Angle, blurRadius: CGFloat = 0) -> AnyTransition
 ```
