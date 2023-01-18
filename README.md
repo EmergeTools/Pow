@@ -49,8 +49,6 @@ likeButton
   )
 ```
 
-This effect respects `particleGroup()`.
-
 - Parameters:
   - `origin`: The origin of the particles.
   - `layer`: The `ParticleLayer` on which to render the effect, default is `local`.
@@ -128,8 +126,6 @@ static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int
 [Preview](https://movingparts.io/pow/#rise)
 
 An effect that emits the provided particles from the origin point and slowly float up while moving side to side.
-
-This effect respects `particleGroup()`.
 
 - Parameters:
   - `origin`: The origin of the particle.
