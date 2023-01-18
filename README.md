@@ -194,6 +194,10 @@ static func shine(angle: Angle, duration: Double = 1.0) -> AnyChangeEffect
 
 Triggers a sound effect as feedback whenever a value changes.
 
+This effect will not interrupt or duck any other audio that may currently playing. It may also not triggered based on the setting of the user's silent switch or playback device.
+
+To relay important information to the user, you should always accompany audio effects with visual cues.
+
 - `soundEffect`: The sound effect to trigger.
 
 ```swift
