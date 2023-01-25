@@ -1,5 +1,11 @@
 ![](./images/og-image.png)
 
+<p align="center">
+<a href="https://movingparts.io/pow">:shopping_cart: <b>Buy License</b></a> |
+<a href="https://testflight.apple.com/join/oLZvCpXT">:airplane: <b>Example App TestFlight</b></a> |
+<a href="https://github.com/movingparts-io/Pow-Examples">:octocat: <b>Example App Repo</b></a>
+</p>
+
 # Pow
 
 Delightful SwiftUI effects for your app.
