@@ -39,7 +39,7 @@ Button {
 .tint(post.isLiked ? .red : .gray)
 ```
 
-You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Ping](#ping), [Rise](#rise), [Shake](#shake), [Shine](#shine), and [Spin](#spin).
+You can choose from the following Change Effects: [Spray](#spray), [Glow](#glow), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Pulse](#pulse), [Rise](#rise), [Shake](#shake), [Shine](#shine), [Spin](#spin), and [Wiggle](#wiggle).
 
 ### Spray
 
@@ -62,6 +62,35 @@ likeButton
 
 ```swift
 static func spray(origin: UnitPoint = .center, layer: ParticleLayer = .local, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
+```
+
+### Glow
+
+[Preview](https://movingparts.io/pow/#glow)
+
+An effect that highlights the view with a glow around it.
+
+The glow appears for a second.
+
+```swift
+Text(price, format: .currency(code: "USD")
+  .changeEffect(.glow, value: price)
+```
+
+```swift
+static var glow: AnyConditionalEffect
+```
+
+An effect that highlights the view with a glow around it.
+
+The glow appears for a second.
+
+- Parameters:
+  - `color`: The color of the glow.
+  - `radius`: The radius of the glow.
+  
+```swift
+static func glow(color: Color, radius: CGFloat = 16) -> AnyChangeEffect
 ```
 
 ### Haptic Feedback
@@ -100,31 +129,21 @@ Makes the view jump the given height and then bounces a few times before settlin
 static func jump(height: CGFloat) -> AnyChangeEffect
 ```
 
-### Ping
+### Pulse
 
 [Preview](https://movingparts.io/pow/#ping)
 
-Adds one or more shapes that slowly grow and fade-out behind the view.
-
-The shape will be colored by the current tint style.
+An effect that adds one or more shapes that slowly grow and fade-out behind the view.
 
 - Parameters:
   - `shape`: The shape to use for the effect.
-  - `count`: The number of shapes to emit.
+  - `style`: The shape style to use for the effect. Defaults to `tint`.
+  - `drawingMode`: The mode used to render the shape. Defaults to `fill`.
+  - `count`: The number of shapes to emit. Defaults to `1`.
+  - `layer`: The `ParticleLayer` on which to render the effect. Defaults to `local`.
 
 ```swift
-  static func ping(shape: some InsettableShape, count: Int) -> AnyChangeEffect
-```
-
- An effect that adds one or more shapes that slowly grow and fade-out behind the view.
- 
- - Parameters:
-   - `shape`: The shape to use for the effect.
-   - `style`: The style to use for the effect.
-   - `count`: The number of shapes to emit.
-
-```swift
-static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int) -> AnyChangeEffect
+static func pulse(shape: some InsettableShape, style: some ShapeStyle = .tint, drawingMode: PulseDrawingMode = .fill, count: Int = 1, layer: ParticleLayer = .local) -> AnyChangeEffect
 ```
 
 ### Rise
@@ -219,13 +238,32 @@ static var spin: AnyChangeEffect
 Spins the view around the given axis when a change happens.
 
 - Parameters:
-  - axis: The x, y and z elements that specify the axis of rotation.
-  - anchor: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
-  - anchorZ: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
-  - perspective: The relative vanishing point with a default of 1 / 6 for this rotation.
+  - `axis`: The x, y and z elements that specify the axis of rotation.
+  - `anchor`: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
+  - `anchorZ`: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
+  - `perspective`: The relative vanishing point with a default of 1 / 6 for this rotation.
+  - `rate`: The rate of the spin.
 
 ```swift
-static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6) -> AnyChangeEffect
+static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6, rate: SpinRate = .default) -> AnyChangeEffect
+```
+
+### Wiggle
+
+[Preview](https://movingparts.io/pow/#wiggle)
+
+An effect that wiggles the view when a change happens.
+
+```swift
+static var wiggle: AnyChangeEffect
+```
+
+An effect that wiggles the view when a change happens.
+
+- `rate`: The rate of the wiggle.
+
+```swift
+static func wiggle(rate: WiggleRate) -> AnyChangeEffect
 ```
 
 ### Delay
@@ -246,6 +284,112 @@ Button("Submit") {
 
 ```swift
 func delay(_ delay: Double) -> AnyChangeEffect
+```
+
+## Conditional Effects
+
+Conditional Effects are effects that can be enabled or disabled through a boolean flag.
+
+Use the `conditionalEffect` modifier and pass in an `AnyConditionalEffect` as well as a condition to enable the effect.
+
+```swift
+Button {
+    playlist.writeToDisc()
+} label: {
+    Label(playlist.isWritingToDisc ? "Burning…" : "Burn", systemName: "opticaldisc.fill")
+}
+.conditionalEffect(.smoke, condition: playlist.isWritingToDisc)
+```
+
+You can choose from the following Conditional Effects: [Smoke](#smoke), [Push Down](#push-down), and [Glow](#glow-1).
+
+Change Effects can be used with the [Repeat](#repeat) modifier.
+
+### Smoke
+
+[Preview](https://movingparts.io/pow/#smoke)
+
+An effect that emits smoke from the view.
+
+```swift
+burnButton
+  .conditionalEffect(.smoke, condition: isOn)
+```
+
+```swift
+static var smoke: AnyConditionalEffect
+```
+
+An effect that emits smoke from the view.
+
+- Parameters:
+  - `layer`: The `ParticleLayer` on which to render the effect, default is `local`.
+
+```swift
+static func smoke(layer: ParticleLayer = .local) -> AnyConditionalEffect
+```
+
+### Push Down
+
+An effect that pushes down the view while a condition is true.
+
+```swift
+submitButton
+  .conditionalEffect(.pushDown, condition: isPressed)
+```
+
+```swift
+static var pushDown: AnyConditionalEffect
+```
+
+### Glow
+
+[Preview](https://movingparts.io/pow/#glow)
+
+An effect that highlights the view with a glow around it.
+
+```swift
+continueButton
+  .conditionalEffect(.pushDown, condition: canContinue)
+```
+
+```swift
+static var glow: AnyConditionalEffect
+```
+
+An effect that highlights the view with a glow around it.
+
+- Parameters:
+  - `color`: The color of the glow.
+  - `radius`: The radius of the glow.
+  
+```swift
+static func glow(color: Color, radius: CGFloat = 16) -> AnyConditionalEffect
+```
+
+### Repeat
+
+Repeats a change effect at the specified interval while a condition is true.
+
+```swift
+notificationsTabView
+  .conditionalEffect(.repeat(.jump(height: 100), every: 2), condition: hasUnreadMessages)
+```
+
+- Parameters:
+  - `effect`: The change effect to repeat.
+  - `interval`: The duration between each change effect.
+
+```swift
+static func `repeat`(_ effect: AnyChangeEffect, every interval: Duration) -> AnyConditionalEffect
+```
+
+- Parameters:
+  - `effect`: The change effect to repeat.
+  - `interval`: The number of seconds between each change effect.
+
+```swift
+static func `repeat`(_ effect: AnyChangeEffect, every interval: TimeInterval) -> AnyConditionalEffect
 ```
 
 ## Particle Layer
@@ -312,6 +456,15 @@ on removal.
 
 ```swift
 static var blur: AnyTransition
+```
+
+A transition from blurry to sharp on insertion, and from sharp to blurry
+on removal.
+
+- Parameter `radius`: The radial size of the blur at the end of the transition.
+
+```swift
+static func blur(radius: CGFloat) -> AnyTransition
 ```
 
 ### Boing
