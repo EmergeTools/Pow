@@ -1,26 +1,44 @@
 ![](./images/og-image.png)
 
-<p align="center">
-<a href="https://movingparts.io/pow">:mag: <b>Pow Overview</b></a> |
-<a href="https://github.com/movingparts-io/Pow-Examples">:octocat: <b>Example App Repo</b></a>
-</p>
-
 # Pow
 
 Delightful SwiftUI effects for your app.
 
-> **Note**
-> Pow is free for commercial and non-commercial use.
-
 # Installation
 
-To add a package dependency to your Xcode project, select _File_ > _Add Package_ and enter this repository's URL (https://github.com/movingparts-io/Pow).
+To add a package dependency to your Xcode project, select _File_ > _Add Package_ and enter this repository's URL (https://github.com/EmergeTools/Pow).
+
+To add a package dependency to Swift Package, add this repository to your list of dependencies.
+```swift
+.package(url: "https://github.com/EmergeTools/Pow", from: Version(1, 0, 0))
+```
+
+And to your target as a product:
+```swift
+.product(name: "Pow", package: "Pow")
+```
+
+If you are moving from the previously closed source Pow framework to the new open source package, please refer to our [Transition Guide](). If you have any problems please file an [issue](https://github.com/EmergeTools/Pow/issues).
 
 # Overview
 
 Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
 
 You can find previews of all effects [on the Pow website](https://movingparts.io/pow). If you have an iOS Developer Environment, you can check out the [Pow Example App](https://github.com/movingparts-io/Pow-Examples).
+
+# Feedback & Contribution
+
+This project provides multiple forms of delivering feedback to maintainers.
+
+If you are figuring out how to use about Pow or one of it's effects we ask that you first consult the [effects examples page](https://movingparts.io/pow).
+
+If you still have a question, enhancement, or a way to improve Pow, this project leverages GitHub's [Issues](https://github.com/EmergeTools/Pow/issues) to manage your requests. If you find a bug and wish to report it, an issue would be greatly appreciated.
+
+# Requirements
+
+- iOS 15.0+
+- macOS 12.0
+- Mac Catalyst 15.0+
 
 ## Change Effects
 
@@ -38,7 +56,7 @@ Button {
 .tint(post.isLiked ? .red : .gray)
 ```
 
-You can choose from the following Change Effects: [Spray](#spray), [Glow](#glow), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Pulse](#pulse), [Rise](#rise), [Shake](#shake), [Shine](#shine), [Spin](#spin), and [Wiggle](#wiggle).
+You can choose from the following Change Effects: [Spray](#spray), [Haptic Feedback](#haptic-feedback), [Jump](#jump), [Ping](#ping), [Rise](#rise), [Shake](#shake), [Shine](#shine), and [Spin](#spin).
 
 ### Spray
 
@@ -61,35 +79,6 @@ likeButton
 
 ```swift
 static func spray(origin: UnitPoint = .center, layer: ParticleLayer = .local, @ViewBuilder _ particles: () -> some View) -> AnyChangeEffect
-```
-
-### Glow
-
-[Preview](https://movingparts.io/pow/#glow)
-
-An effect that highlights the view with a glow around it.
-
-The glow appears for a second.
-
-```swift
-Text(price, format: .currency(code: "USD")
-  .changeEffect(.glow, value: price)
-```
-
-```swift
-static var glow: AnyConditionalEffect
-```
-
-An effect that highlights the view with a glow around it.
-
-The glow appears for a second.
-
-- Parameters:
-  - `color`: The color of the glow.
-  - `radius`: The radius of the glow.
-  
-```swift
-static func glow(color: Color, radius: CGFloat = 16) -> AnyChangeEffect
 ```
 
 ### Haptic Feedback
@@ -128,21 +117,31 @@ Makes the view jump the given height and then bounces a few times before settlin
 static func jump(height: CGFloat) -> AnyChangeEffect
 ```
 
-### Pulse
+### Ping
 
 [Preview](https://movingparts.io/pow/#ping)
 
-An effect that adds one or more shapes that slowly grow and fade-out behind the view.
+Adds one or more shapes that slowly grow and fade-out behind the view.
+
+The shape will be colored by the current tint style.
 
 - Parameters:
   - `shape`: The shape to use for the effect.
-  - `style`: The shape style to use for the effect. Defaults to `tint`.
-  - `drawingMode`: The mode used to render the shape. Defaults to `fill`.
-  - `count`: The number of shapes to emit. Defaults to `1`.
-  - `layer`: The `ParticleLayer` on which to render the effect. Defaults to `local`.
+  - `count`: The number of shapes to emit.
 
 ```swift
-static func pulse(shape: some InsettableShape, style: some ShapeStyle = .tint, drawingMode: PulseDrawingMode = .fill, count: Int = 1, layer: ParticleLayer = .local) -> AnyChangeEffect
+  static func ping(shape: some InsettableShape, count: Int) -> AnyChangeEffect
+```
+
+ An effect that adds one or more shapes that slowly grow and fade-out behind the view.
+ 
+ - Parameters:
+   - `shape`: The shape to use for the effect.
+   - `style`: The style to use for the effect.
+   - `count`: The number of shapes to emit.
+
+```swift
+static func ping(shape: some InsettableShape, style: some ShapeStyle, count: Int) -> AnyChangeEffect
 ```
 
 ### Rise
@@ -214,7 +213,7 @@ static func shine(angle: Angle, duration: Double = 1.0) -> AnyChangeEffect
 
 Triggers a sound effect as feedback whenever a value changes.
 
-This effect will not interrupt or duck any other audio that may currently be playing. It may also not be triggered based on the setting of the user's silent switch or playback device.
+This effect will not interrupt or duck any other audio that may currently playing. It may also not triggered based on the setting of the user's silent switch or playback device.
 
 To relay important information to the user, you should always accompany audio effects with visual cues.
 
@@ -237,32 +236,13 @@ static var spin: AnyChangeEffect
 Spins the view around the given axis when a change happens.
 
 - Parameters:
-  - `axis`: The x, y and z elements that specify the axis of rotation.
-  - `anchor`: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
-  - `anchorZ`: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
-  - `perspective`: The relative vanishing point with a default of 1 / 6 for this rotation.
-  - `rate`: The rate of the spin.
+  - axis: The x, y and z elements that specify the axis of rotation.
+  - anchor: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
+  - anchorZ: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
+  - perspective: The relative vanishing point with a default of 1 / 6 for this rotation.
 
 ```swift
-static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6, rate: SpinRate = .default) -> AnyChangeEffect
-```
-
-### Wiggle
-
-[Preview](https://movingparts.io/pow/#wiggle)
-
-An effect that wiggles the view when a change happens.
-
-```swift
-static var wiggle: AnyChangeEffect
-```
-
-An effect that wiggles the view when a change happens.
-
-- `rate`: The rate of the wiggle.
-
-```swift
-static func wiggle(rate: WiggleRate) -> AnyChangeEffect
+static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6) -> AnyChangeEffect
 ```
 
 ### Delay
@@ -283,112 +263,6 @@ Button("Submit") {
 
 ```swift
 func delay(_ delay: Double) -> AnyChangeEffect
-```
-
-## Conditional Effects
-
-Conditional Effects are effects that can be enabled or disabled through a boolean flag.
-
-Use the `conditionalEffect` modifier and pass in an `AnyConditionalEffect` as well as a condition to enable the effect.
-
-```swift
-Button {
-    playlist.writeToDisc()
-} label: {
-    Label(playlist.isWritingToDisc ? "Burning…" : "Burn", systemName: "opticaldisc.fill")
-}
-.conditionalEffect(.smoke, condition: playlist.isWritingToDisc)
-```
-
-You can choose from the following Conditional Effects: [Smoke](#smoke), [Push Down](#push-down), and [Glow](#glow-1).
-
-Change Effects can be used with the [Repeat](#repeat) modifier.
-
-### Smoke
-
-[Preview](https://movingparts.io/pow/#smoke)
-
-An effect that emits smoke from the view.
-
-```swift
-burnButton
-  .conditionalEffect(.smoke, condition: isOn)
-```
-
-```swift
-static var smoke: AnyConditionalEffect
-```
-
-An effect that emits smoke from the view.
-
-- Parameters:
-  - `layer`: The `ParticleLayer` on which to render the effect, default is `local`.
-
-```swift
-static func smoke(layer: ParticleLayer = .local) -> AnyConditionalEffect
-```
-
-### Push Down
-
-An effect that pushes down the view while a condition is true.
-
-```swift
-submitButton
-  .conditionalEffect(.pushDown, condition: isPressed)
-```
-
-```swift
-static var pushDown: AnyConditionalEffect
-```
-
-### Glow
-
-[Preview](https://movingparts.io/pow/#glow)
-
-An effect that highlights the view with a glow around it.
-
-```swift
-continueButton
-  .conditionalEffect(.pushDown, condition: canContinue)
-```
-
-```swift
-static var glow: AnyConditionalEffect
-```
-
-An effect that highlights the view with a glow around it.
-
-- Parameters:
-  - `color`: The color of the glow.
-  - `radius`: The radius of the glow.
-  
-```swift
-static func glow(color: Color, radius: CGFloat = 16) -> AnyConditionalEffect
-```
-
-### Repeat
-
-Repeats a change effect at the specified interval while a condition is true.
-
-```swift
-notificationsTabView
-  .conditionalEffect(.repeat(.jump(height: 100), every: 2), condition: hasUnreadMessages)
-```
-
-- Parameters:
-  - `effect`: The change effect to repeat.
-  - `interval`: The duration between each change effect.
-
-```swift
-static func `repeat`(_ effect: AnyChangeEffect, every interval: Duration) -> AnyConditionalEffect
-```
-
-- Parameters:
-  - `effect`: The change effect to repeat.
-  - `interval`: The number of seconds between each change effect.
-
-```swift
-static func `repeat`(_ effect: AnyChangeEffect, every interval: TimeInterval) -> AnyConditionalEffect
 ```
 
 ## Particle Layer
@@ -455,15 +329,6 @@ on removal.
 
 ```swift
 static var blur: AnyTransition
-```
-
-A transition from blurry to sharp on insertion, and from sharp to blurry
-on removal.
-
-- Parameter `radius`: The radial size of the blur at the end of the transition.
-
-```swift
-static func blur(radius: CGFloat) -> AnyTransition
 ```
 
 ### Boing
