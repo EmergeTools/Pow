@@ -3,7 +3,7 @@ import SwiftUI
 struct GithubButton: View {
     var localPath: LocalPath
 
-    let baseURL = URL(string: "https://github.com/movingparts-io/Pow-Examples/blob/main/")!
+    let baseURL = URL(string: "https://github.com/EmergeTools/Pow/blob/main/Example/")!
 
     init(_ localPath: LocalPath) {
         self.localPath = localPath
