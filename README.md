@@ -2,7 +2,9 @@
 
 # Pow
 
-Delightful SwiftUI effects for your app.
+Delightful SwiftUI effects for your app. 
+
+[Check out other open source projects from Emerge Tools](https://www.emergetools.com/open-source)
 
 # Installation
 
