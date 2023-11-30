@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "AnvilSmokeLightAlt.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
