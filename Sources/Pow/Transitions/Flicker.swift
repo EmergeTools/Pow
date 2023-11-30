@@ -21,15 +21,10 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Flicker: ViewModifier, Animatable, AnimatableModifier, Hashable {
+internal struct Flicker: ViewModifier, ProgressableAnimation, AnimatableModifier, Hashable {
     var count: Int
 
     var animatableData: CGFloat
-
-    private var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
-    }
 
     private var isVisible: Bool {
         (progress * CGFloat(count)).remainder(dividingBy: 1) >= 0
@@ -43,6 +38,12 @@ internal struct Flicker: ViewModifier, Animatable, AnimatableModifier, Hashable 
 }
 
 #if os(iOS) && DEBUG
+struct Flicker_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Flicker {
+    Flicker(count: 1, animatableData: 0)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Flicker_Previews: PreviewProvider {
     struct Preview: View {

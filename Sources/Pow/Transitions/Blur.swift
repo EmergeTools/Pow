@@ -22,7 +22,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Blur: ViewModifier, Animatable, AnimatableModifier, Hashable {
+internal struct Blur: ViewModifier, DebugProgressableAnimation, AnimatableModifier, Hashable {
     var animatableData: CGFloat {
         get { radius }
         set { radius = newValue }
@@ -37,6 +37,12 @@ internal struct Blur: ViewModifier, Animatable, AnimatableModifier, Hashable {
 }
 
 #if os(iOS) && DEBUG
+struct Blur_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Blur {
+    Blur(radius: 30)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Blur_Previews: PreviewProvider {
     struct Preview: View {

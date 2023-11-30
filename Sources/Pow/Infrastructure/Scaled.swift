@@ -26,3 +26,5 @@ internal struct Scaled<V: ViewModifier & Animatable>: ViewModifier, Animatable {
         content.modifier(base.animation(nil))
     }
 }
+
+extension Scaled: ProgressableAnimation where V.AnimatableData == CGFloat { }

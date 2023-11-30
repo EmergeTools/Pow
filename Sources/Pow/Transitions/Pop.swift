@@ -51,7 +51,7 @@ public extension AnyTransition.MovingParts {
 }
 
 @available(iOS 15.0, *)
-private struct Pop: AnimatableModifier, Animatable, ViewModifier {
+struct Pop: AnimatableModifier, ProgressableAnimation, ViewModifier {
     var animatableData: CGFloat = 0
 
     var style: AnyShapeStyle
@@ -61,11 +61,6 @@ private struct Pop: AnimatableModifier, Animatable, ViewModifier {
     init(style: AnyShapeStyle, animatableData: CGFloat) {
         self.animatableData = animatableData
         self.style = style
-    }
-
-    var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
     }
 
     func body(content: Content) -> some View {
@@ -170,6 +165,19 @@ private struct Pop: AnimatableModifier, Animatable, ViewModifier {
 }
 
 #if os(iOS) && DEBUG
+struct Pop_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Pop {
+    Pop(style: AnyShapeStyle(.tint), animatableData: 0)
+  }
+
+  static var content: any View {
+    Image(systemName: "heart.fill")
+        .foregroundColor(.red)
+        .tint(.red)
+        .preferredColorScheme(.dark)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Pop_Previews: PreviewProvider {
     struct Preview: View {

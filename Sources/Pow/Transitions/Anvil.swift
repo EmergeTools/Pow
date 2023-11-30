@@ -19,7 +19,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Anvil: ViewModifier, Animatable, AnimatableModifier {
+internal struct Anvil: ViewModifier, ProgressableAnimation, AnimatableModifier {
     var animatableData: CGFloat = 0
 
     #if os(iOS)
@@ -29,11 +29,6 @@ internal struct Anvil: ViewModifier, Animatable, AnimatableModifier {
 
     internal init(animatableData: CGFloat = 0) {
         self.animatableData = animatableData
-    }
-
-    var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
     }
 
     func body(content: Content) -> some View {
@@ -212,6 +207,21 @@ extension EdgeInsets {
 }
 
 #if os(iOS) && DEBUG
+struct Anvil_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Anvil {
+    Anvil(animatableData: 0)
+  }
+
+  static var content: any View {
+    RoundedRectangle(
+      cornerRadius: 8,
+      style: .continuous)
+    .fill(Color.blue)
+    .frame(width: 80, height: 80)
+    .preferredColorScheme(.dark)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Anvil_Previews: PreviewProvider {
     struct Item: Identifiable {

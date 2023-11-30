@@ -29,7 +29,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Skid: Animatable, GeometryEffect {
+internal struct Skid: DebugProgressableAnimation, GeometryEffect {
     var direction: AnyTransition.MovingParts.SkidDirection
 
     var animatableData: CGFloat = 0
@@ -73,6 +73,29 @@ internal struct Skid: Animatable, GeometryEffect {
 }
 
 #if os(iOS) && DEBUG
+struct Skid_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Skid {
+    Skid(.leading)
+  }
+
+  static var content: some View {
+    RoundedRectangle(cornerRadius: 8, style: .continuous)
+      .fill(Color.orange)
+        .overlay {
+            Text("Jell-O\nWorld")
+                .blendMode(.difference)
+                .offset(x: 2, y: 2)
+        }
+        .compositingGroup()
+        .overlay {
+            Text("Jell-O\nWorld")
+        }
+        .font(.system(.headline, design: .rounded).weight(.black))
+        .multilineTextAlignment(.center)
+        .frame(width: 150, height: 150)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Skid_Previews: PreviewProvider {
     struct Item: Identifiable {

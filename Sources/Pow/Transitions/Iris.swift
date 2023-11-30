@@ -15,7 +15,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-private struct Iris: ViewModifier, Animatable, AnimatableModifier {
+struct Iris: ViewModifier, DebugProgressableAnimation, AnimatableModifier {
     var origin: UnitPoint
 
     var blurRadius: CGFloat
@@ -58,6 +58,12 @@ private struct Iris: ViewModifier, Animatable, AnimatableModifier {
 }
 
 #if os(iOS) && DEBUG
+struct Iris_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Iris {
+    Iris(origin: .center, animatableData: 0)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Mask_Previews: PreviewProvider {
     struct Preview: View {

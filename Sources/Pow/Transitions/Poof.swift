@@ -16,16 +16,11 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-private struct Poof: ViewModifier, Animatable, AnimatableModifier {
+struct Poof: ViewModifier, ProgressableAnimation, AnimatableModifier {
     var animatableData: CGFloat = 0
 
     internal init(animatableData: CGFloat) {
         self.animatableData = animatableData
-    }
-
-    var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
     }
 
     func body(content: Content) -> some View {
@@ -56,6 +51,25 @@ private struct Poof: ViewModifier, Animatable, AnimatableModifier {
 }
 
 #if os(iOS) && DEBUG
+struct Proof_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Poof {
+    Poof(animatableData: 0)
+  }
+
+  static var content: any View {
+    ZStack {
+        RoundedRectangle(cornerRadius: 32, style: .continuous)
+            .fill(Color.accentColor)
+
+        Text("Hello\nWorld!")
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .font(.system(.title, design: .rounded))
+    }
+    .frame(width: 300, height: 150)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Poof_Previews: PreviewProvider {
     struct Preview: View {
