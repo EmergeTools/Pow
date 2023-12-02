@@ -41,6 +41,7 @@ If you still have a question, enhancement, or a way to improve Pow, this project
 - iOS 15.0+
 - macOS 12.0
 - Mac Catalyst 15.0+
+- visionOS beta 6 (requires Xcode 15.1 beta 3)
 
 ## Change Effects
 
@@ -136,7 +137,7 @@ The shape will be colored by the current tint style.
 ```
 
  An effect that adds one or more shapes that slowly grow and fade-out behind the view.
- 
+
  - Parameters:
    - `shape`: The shape to use for the effect.
    - `style`: The style to use for the effect.
