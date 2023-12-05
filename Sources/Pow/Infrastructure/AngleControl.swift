@@ -35,14 +35,17 @@ struct AngleControl<Label: View>: View {
     }
 
     private var size: CGFloat {
-        switch controlSize {
-        case .mini: return 32
-        case .small: return 38
-        case .regular: return 44
-        case .large: return 54
-        case .extraLarge: return 54
-        @unknown default: return 44
-        }
+      switch controlSize {
+      case .mini: return 32
+      case .small: return 38
+      case .regular: return 44
+      case .large: return 54
+#if compiler(>=5.9)
+      // ControlSize.extraLarge is only available from Xcode 15 which comes with Swift 5.9
+      case .extraLarge: return 54
+#endif
+      @unknown default: return 44
+      }
     }
 
     var body: some View {
