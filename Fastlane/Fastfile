@@ -2,24 +2,28 @@ fastlane_require 'git'
 
 default_platform(:ios)
 
-g = Git.open('.')
+def build_for_config(config)
+  g = Git.open('.')
+  build_app(
+    project: "./Example/Pow Example.xcodeproj",
+    export_method: "ad-hoc",
+    skip_codesigning: true,
+    destination: "generic/platform=iOS Simulator",
+    configuration: config,
+    skip_package_ipa: true)
+  if ENV["PR_NUMBER"] && ENV["PR_NUMBER"] != "" && ENV["PR_NUMBER"] != "false"
+    current_sha = g.log[0].parents[1].sha
+    baseBuildId = g.log[0].parent.sha
+    emerge(repo_name: "EmergeTools/Pow", pr_number: ENV["PR_NUMBER"], sha: current_sha, base_sha: baseBuildId)
+  else
+    current_sha = g.log[0].sha
+    emerge(repo_name: "EmergeTools/Pow", sha: current_sha)
+  end
+end
 
 platform :ios do
   lane :build do
-    build_app(
-      project: "./Example/Pow Example.xcodeproj",
-      export_method: "ad-hoc",
-      skip_codesigning: true,
-      destination: "generic/platform=iOS Simulator",
-      configuration: "Debug",
-      skip_package_ipa: true)
-    if ENV["PR_NUMBER"] && ENV["PR_NUMBER"] != "" && ENV["PR_NUMBER"] != "false"
-      current_sha = g.log[0].parents[1].sha
-      baseBuildId = g.log[0].parent.sha
-      emerge(repo_name: "EmergeTools/Pow", pr_number: ENV["PR_NUMBER"], sha: current_sha, base_sha: baseBuildId)
-    else
-      current_sha = g.log[0].sha
-      emerge(repo_name: "EmergeTools/Pow", sha: current_sha)
-    end
+    build_for_config("Debug")
+    build_for_config("Release")
   end
 end
