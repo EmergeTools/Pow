@@ -76,6 +76,7 @@ internal struct GlowModifier: ViewModifier, Animatable {
                     .opacity(ramp(amount))
                     .blendMode(.sourceAtop)
                     .brightness(ramp(abs(amount)) * 0.1)
+                    .allowsHitTesting(false)
             }
             .compositingGroup()
             .shadow(color: color.opacity(shadowOpacity /  1.2), radius: amount * radius / 4.0, x: 0, y: 0)
