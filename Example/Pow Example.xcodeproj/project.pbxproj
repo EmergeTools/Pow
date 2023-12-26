@@ -103,6 +103,7 @@
 		54F15E5429D59D250054690B /* PulseExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F15E5329D59D250054690B /* PulseExample.swift */; };
 		54F15E5629D5A0D70054690B /* GlowExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F15E5529D5A0D70054690B /* GlowExample.swift */; };
 		B7A5DA8D2B0E853A0035FC0A /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = B7A5DA8C2B0E853A0035FC0A /* Pow */; };
+		FA13B8ED2B3BAF5600F58836 /* SnapshotPreferences in Frameworks */ = {isa = PBXBuildFile; productRef = FA13B8EC2B3BAF5600F58836 /* SnapshotPreferences */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7A5DA8D2B0E853A0035FC0A /* Pow in Frameworks */,
+				FA13B8ED2B3BAF5600F58836 /* SnapshotPreferences in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +422,7 @@
 			name = "Pow Example";
 			packageProductDependencies = (
 				B7A5DA8C2B0E853A0035FC0A /* Pow */,
+				FA13B8EC2B3BAF5600F58836 /* SnapshotPreferences */,
 			);
 			productName = "Pow Example";
 			productReference = 546A2986292A31BB00A80DE2 /* Pow Example.app */;
@@ -450,6 +453,7 @@
 			);
 			mainGroup = 546A297D292A31BB00A80DE2;
 			packageReferences = (
+				FA13B8EB2B3BAF5600F58836 /* XCRemoteSwiftPackageReference "SnapshotPreviews-iOS" */,
 			);
 			productRefGroup = 546A2987292A31BB00A80DE2 /* Products */;
 			projectDirPath = "";
@@ -777,10 +781,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		FA13B8EB2B3BAF5600F58836 /* XCRemoteSwiftPackageReference "SnapshotPreviews-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/SnapshotPreviews-iOS";
+			requirement = {
+				kind = exactVersion;
+				version = 0.7.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		B7A5DA8C2B0E853A0035FC0A /* Pow */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Pow;
+		};
+		FA13B8EC2B3BAF5600F58836 /* SnapshotPreferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA13B8EB2B3BAF5600F58836 /* XCRemoteSwiftPackageReference "SnapshotPreviews-iOS" */;
+			productName = SnapshotPreferences;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

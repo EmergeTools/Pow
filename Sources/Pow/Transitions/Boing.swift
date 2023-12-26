@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyTransition.MovingParts {
     /// A transition that moves the view down with any overshoot resulting in an
@@ -218,6 +221,9 @@ struct Bounce_Previews: PreviewProvider {
                 .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 
@@ -290,6 +296,9 @@ struct Boing_2_Previews: PreviewProvider {
         NavigationView {
             Preview()
         }
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 #endif

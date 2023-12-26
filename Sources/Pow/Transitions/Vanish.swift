@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyTransition.MovingParts {
     /// A transition that dissolves the view into many small particles.
@@ -236,6 +239,9 @@ struct Vanish_Previews: PreviewProvider {
                 .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 #endif

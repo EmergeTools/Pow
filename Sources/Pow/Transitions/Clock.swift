@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyTransition.MovingParts {
     /// A transition using a clockwise sweep around the centerpoint of the view.
@@ -225,6 +228,9 @@ struct Clock_Previews: PreviewProvider {
                 .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 #endif
