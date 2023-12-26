@@ -26,7 +26,7 @@ If you are moving from the previously closed source Pow framework to the new ope
 
 Pow features a selection of [SwiftUI transitions](#transitions) as well as [Change Effects](#change-effects) that trigger every time a value is updated.
 
-You can find previews of all effects [on the Pow website](https://movingparts.io/pow). If you have an iOS Developer Environment, you can check out the [Pow Example App](https://github.com/movingparts-io/Pow-Examples).
+You can find previews of all effects [on the Pow website](https://movingparts.io/pow). If you have an iOS Developer Environment, you can check out the [Pow Example App](https://github.com/EmergeTools/Pow/tree/main/Example).
 
 # Feedback & Contribution
 
