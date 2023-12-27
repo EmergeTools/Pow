@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyTransition.MovingParts {
     /// The direction from which to animate in during a `skid` transition's insertion.
@@ -182,6 +185,9 @@ struct Skid_Previews: PreviewProvider {
                 .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 

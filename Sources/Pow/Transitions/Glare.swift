@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyTransition.MovingParts {
     /// A transitions that shows the view by combining a diagonal wipe with a
@@ -254,6 +257,9 @@ struct Glare_Previews: PreviewProvider {
                 .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
+        #if os(iOS) && EMG_PREVIEWS
+          .emergeSnapshotPrecision(0)
+        #endif
     }
 }
 #endif

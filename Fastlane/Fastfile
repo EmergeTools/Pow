@@ -3,6 +3,10 @@ fastlane_require 'git'
 default_platform(:ios)
 
 def build_for_config(config)
+
+  package_file = "../Package.swift"
+  `sed -i '' 's/let enablePreviews = .*/let enablePreviews = #{config == "Debug" ? "true" : "false"}/' "#{package_file}"`
+
   g = Git.open('.')
   build_app(
     project: "./Example/Pow Example.xcodeproj",

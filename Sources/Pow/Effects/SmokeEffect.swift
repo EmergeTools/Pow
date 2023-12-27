@@ -1,5 +1,8 @@
 import SwiftUI
 import simd
+#if os(iOS) && EMG_PREVIEWS
+import SnapshotPreferences
+#endif
 
 public extension AnyConditionalEffect {
     /// An effect that emits smoke from the view.
@@ -336,30 +339,35 @@ struct ContinuousParticleEffect_Previews: PreviewProvider {
     }
 
     static var previews: some View {
+      Group {
         Preview()
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Dark")
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Dark")
         Preview()
-            .preferredColorScheme(.light)
-            .previewDisplayName("Light")
+          .preferredColorScheme(.light)
+          .previewDisplayName("Light")
         PreviewS()
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Small")
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Small")
         Preview2()
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Large")
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Large")
         Preview3()
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Particle Layer")
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Particle Layer")
 
-        #if os(iOS)
+#if os(iOS)
         PreviewLayer()
-            .previewDisplayName("Emitter Layer")
-        #endif
+          .previewDisplayName("Emitter Layer")
+#endif
 
         PreviewAlt()
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Emitter Dark")
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Emitter Dark")
+      }
+      #if os(iOS) && EMG_PREVIEWS
+        .emergeSnapshotPrecision(0)
+      #endif
     }
 }
 #endif

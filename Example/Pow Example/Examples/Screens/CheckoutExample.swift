@@ -1,5 +1,6 @@
 import Pow
 import SwiftUI
+import SnapshotPreferences
 
 struct CheckoutExample: View, Example {
     enum PaymentError: Error {
@@ -271,5 +272,6 @@ struct CheckoutExample_Previews: PreviewProvider {
             CheckoutExample()
                 .toolbar(.visible, for: .navigationBar)
         }
+        .emergeSnapshotPrecision(0.99)
     }
 }
