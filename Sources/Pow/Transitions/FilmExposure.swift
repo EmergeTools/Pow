@@ -20,13 +20,8 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Snapshot: ViewModifier, Animatable, AnimatableModifier, Hashable {
+internal struct Snapshot: ViewModifier, ProgressableAnimation, AnimatableModifier, Hashable {
     var animatableData: CGFloat = 0
-
-    var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
-    }
 
     func body(content: Content) -> some View {
         content
@@ -38,13 +33,8 @@ internal struct Snapshot: ViewModifier, Animatable, AnimatableModifier, Hashable
     }
 }
 
-internal struct ExposureFade: ViewModifier, Animatable, AnimatableModifier, Hashable {
+internal struct ExposureFade: ViewModifier, ProgressableAnimation, AnimatableModifier, Hashable {
     var animatableData: CGFloat = 0
-
-    var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
-    }
 
     func body(content: Content) -> some View {
         content
@@ -55,6 +45,18 @@ internal struct ExposureFade: ViewModifier, Animatable, AnimatableModifier, Hash
 }
 
 #if os(iOS) && DEBUG
+struct Snapshot_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Snapshot {
+    Snapshot(animatableData: 0)
+  }
+}
+
+struct FilmExposure_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: ExposureFade {
+    ExposureFade(animatableData: 0)
+  }
+}
+
 @available(iOS 15.0, *)
 struct ExoposureFade_Previews: PreviewProvider {
     struct Preview: View {

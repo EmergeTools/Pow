@@ -47,7 +47,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Glare: ViewModifier, Animatable, AnimatableModifier {
+internal struct Glare: ViewModifier, DebugProgressableAnimation, AnimatableModifier {
     var animatableData: CGFloat = 0
 
     var angle: Angle
@@ -133,7 +133,36 @@ internal struct Glare: ViewModifier, Animatable, AnimatableModifier {
 
 #if os(iOS) && DEBUG
 @available(iOS 16.0, *)
+struct Glare_Preview: PreviewableAnimation, PreviewProvider {
+  static var animation: Glare {
+    Glare(.degrees(45), color: .white, increasedBrightness: true, animatableData: 0)
+  }
+
+  static var content: any View {
+    Glare_Previews.makeRect(start: .indigo, end: .purple)
+        .frame(width: 100, height: 100)
+        .preferredColorScheme(.dark)
+  }
+}
+
+@available(iOS 16.0, *)
 struct Glare_Previews: PreviewProvider {
+  static func makeRect(start: Color, end: Color) -> some View {
+    RoundedRectangle(cornerRadius: 18, style: .continuous)
+        .fill(LinearGradient(
+          colors: [start, end],
+            startPoint: .topLeading,
+            endPoint: .bottom
+        ))
+        .compositingGroup()
+        .overlay {
+            Text("Hello\nWorld")
+                .foregroundStyle(.white.shadow(.inner(radius: 0.5)))
+        }
+        .font(.system(.largeTitle, design: .rounded).weight(.medium))
+        .multilineTextAlignment(.center)
+  }
+
     struct Item: Identifiable {
         var color1: Color
         var color2: Color
@@ -214,19 +243,7 @@ struct Glare_Previews: PreviewProvider {
                         ForEach(items.indices, id: \.self) { index in
                             let item = items[index]
 
-                            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .fill(LinearGradient(
-                                    colors: [item.color1, item.color2],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottom
-                                ))
-                                .compositingGroup()
-                                .overlay {
-                                    Text("Hello\nWorld")
-                                        .foregroundStyle(.white.shadow(.inner(radius: 0.5)))
-                                }
-                                .font(.system(.largeTitle, design: .rounded).weight(.medium))
-                                .multilineTextAlignment(.center)
+                            Glare_Previews.makeRect(start: item.color1, end: item.color2)
                                 .transition(
                                     .asymmetric(
                                         insertion: .movingParts.glare(angle: angle),

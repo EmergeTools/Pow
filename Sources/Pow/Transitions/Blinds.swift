@@ -30,7 +30,7 @@ public extension AnyTransition.MovingParts {
     }
 }
 
-internal struct Blinds: ViewModifier, Animatable, AnimatableModifier, Hashable {
+internal struct Blinds: ViewModifier, ProgressableAnimation, AnimatableModifier, Hashable {
     var slatWidth: CGFloat
 
     var style: AnyTransition.MovingParts.BlindsStyle
@@ -38,11 +38,6 @@ internal struct Blinds: ViewModifier, Animatable, AnimatableModifier, Hashable {
     var isStaggered: Bool
 
     var animatableData: CGFloat
-
-    private var progress: CGFloat {
-        get { animatableData }
-        set { animatableData = newValue }
-    }
 
     func body(content: Content) -> some View {
         content
@@ -108,6 +103,13 @@ private struct BlindsShape: Shape {
 }
 
 #if os(iOS) && DEBUG
+struct Blinds_Preview: PreviewableAnimation & PreviewProvider {
+
+  static var animation: Blinds {
+    Blinds(slatWidth: 20, style: .venetian, isStaggered: false, animatableData: 0)
+  }
+}
+
 @available(iOS 15.0, *)
 struct Blinds_Previews: PreviewProvider {
     struct Preview: View {
