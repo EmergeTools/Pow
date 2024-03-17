@@ -136,6 +136,9 @@ private struct RepeatingChangeEffectModifier: ViewModifier {
                     timer.resume(interval: interval, delay: effect.delay)
                 }
             }
+            .onDisappear {
+                timer.pause()
+            }
             .onChange(of: isEnabled) { isEnabled in
                 if isEnabled {
                     timer.resume(interval: interval, delay: effect.delay)
