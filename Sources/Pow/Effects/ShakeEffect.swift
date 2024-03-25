@@ -12,13 +12,13 @@ public extension AnyChangeEffect {
     enum ShakeRate {
         case `default`
         case fast
-        case customPhaseLength(CGFloat)
+        case phaseLength(CGFloat)
 
         fileprivate var phaseLength: CGFloat {
             switch self {
             case .default: return 0.8
             case .fast: return 0.3
-            case .customPhaseLength(let phaseLength): return phaseLength
+            case .phaseLength(let phaseLength): return phaseLength
             }
         }
     }
