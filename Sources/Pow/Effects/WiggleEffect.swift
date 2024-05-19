@@ -10,11 +10,13 @@ public extension AnyChangeEffect {
     enum WiggleRate {
         case `default`
         case fast
+        case phaseLength(CGFloat)
 
         fileprivate var phaseLength: CGFloat {
             switch self {
             case .default: return 0.8
             case .fast: return 0.3
+            case .phaseLength(let phaseLength): return phaseLength
             }
         }
     }
