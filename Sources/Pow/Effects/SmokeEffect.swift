@@ -57,7 +57,7 @@ private struct SmokeEffect: ViewModifier, Continuous {
         GeometryReader { proxy in
             ZStack {
                 ForEach(Array(particles.enumerated()), id: \.element) { (offset, particle) in
-                    #if os(iOS) || os(visionOS)
+                    #if os(iOS) || os(visionOS) || os(tvOS)
                     let image = UIImage(named: particle, in: .module, with: nil)!.cgImage!
                     #elseif os(macOS)
                     let image = Bundle.module.image(forResource: particle)!.cgImage(forProposedRect: nil, context: nil, hints: nil)!
@@ -70,7 +70,7 @@ private struct SmokeEffect: ViewModifier, Continuous {
     }
 }
 
-#if os(iOS) || os(visionOS)
+#if os(iOS) || os(visionOS) || os(tvOS)
 private class EmitterView: UIView {
     override class var layerClass : AnyClass {
        return CAEmitterLayer.self
@@ -172,7 +172,7 @@ private struct SmokeLayerView: ViewRepresentable {
     }
 }
 
-#if DEBUG
+#if DEBUG && !os(tvOS)
 struct ContinuousParticleEffect_Previews: PreviewProvider {
     private struct Preview: View {
         @State
