@@ -1,3 +1,4 @@
+#if !os(tvOS)
 import SwiftUI
 
 struct AngleControl<Label: View>: View {
@@ -132,3 +133,4 @@ struct AngleControl_Previews: PreviewProvider {
         .padding()
     }
 }
+#endif

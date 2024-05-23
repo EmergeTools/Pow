@@ -54,6 +54,7 @@ public struct AnyConditionalEffect {
     ///   - interval: The duration between each change effect.
     @available(iOS 16.0, *)
     @available(macOS 13.0, *)
+    @available(tvOS 16.0, *)
     public static func `repeat`(_ effect: AnyChangeEffect, every interval: Duration) -> AnyConditionalEffect {
         AnyConditionalEffect(guts: .repeating(effect, interval.timeInterval))
     }
