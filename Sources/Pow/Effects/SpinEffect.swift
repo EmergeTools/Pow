@@ -5,21 +5,21 @@ public extension AnyChangeEffect {
     enum SpinRate {
         case `default`
         case fast
-        case custom(initialVelocity: Angle, maximumVelocity: Angle, additionalVelocity: Angle)
-
-        fileprivate var maximumVelocity: Angle {
-            switch self {
-            case .fast: return .degrees(360 * 4)
-            case .default: return .degrees(360 * 2)
-            case .custom(_, let maximumVelocity, _): return maximumVelocity
-            }
-        }
+        case velocity(initial: Angle, maximum: Angle, additional: Angle)
 
         fileprivate var initialVelocity: Angle {
             switch self {
             case .fast: return .degrees(900)
             case .default: return .degrees(360)
-            case .custom(let initialVelocity, _, _): return initialVelocity
+            case .velocity(let initial, _, _): return initial
+            }
+        }
+
+        fileprivate var maximumVelocity: Angle {
+            switch self {
+            case .fast: return .degrees(360 * 4)
+            case .default: return .degrees(360 * 2)
+            case .velocity(_, let maximum, _): return maximum
             }
         }
 
@@ -27,7 +27,7 @@ public extension AnyChangeEffect {
             switch self {
             case .fast: return .degrees(900)
             case .default: return .degrees(360)
-            case .custom(_, _, let additionalVelocity): return additionalVelocity
+            case .velocity(_, _, let additional): return additional
             }
         }
     }
