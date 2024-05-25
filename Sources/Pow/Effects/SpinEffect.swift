@@ -5,18 +5,21 @@ public extension AnyChangeEffect {
     enum SpinRate {
         case `default`
         case fast
-
-        fileprivate var maximumVelocity: Angle {
-            switch self {
-            case .fast: return .degrees(360 * 4)
-            case .default: return .degrees(360 * 2)
-            }
-        }
+        case velocity(initial: Angle, maximum: Angle, additional: Angle)
 
         fileprivate var initialVelocity: Angle {
             switch self {
             case .fast: return .degrees(900)
             case .default: return .degrees(360)
+            case .velocity(let initial, _, _): return initial
+            }
+        }
+
+        fileprivate var maximumVelocity: Angle {
+            switch self {
+            case .fast: return .degrees(360 * 4)
+            case .default: return .degrees(360 * 2)
+            case .velocity(_, let maximum, _): return maximum
             }
         }
 
@@ -24,6 +27,7 @@ public extension AnyChangeEffect {
             switch self {
             case .fast: return .degrees(900)
             case .default: return .degrees(360)
+            case .velocity(_, _, let additional): return additional
             }
         }
     }
@@ -40,10 +44,11 @@ public extension AnyChangeEffect {
     ///   - anchor: The location with a default of center that defines a point in 3D space about which the rotation is anchored.
     ///   - anchorZ: The location with a default of 0 that defines a point in 3D space about which the rotation is anchored.
     ///   - perspective: The relative vanishing point with a default of 1 / 6 for this rotation.
+    ///   - perspective: An additional multipler you can provide to speed up the animation's runtime.
     ///   - rate: The rate of the spin.
-    static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6, rate: SpinRate = .default) -> AnyChangeEffect {
+    static func spin(axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1 / 6, multiplier speedBoost: CGFloat = 0.0, rate: SpinRate = .default) -> AnyChangeEffect {
         .simulation { change in
-            SpinSimulationModifier(impulseCount: change, axis: axis, anchor: anchor, anchorZ: anchorZ, perspective: perspective, rate: rate)
+            SpinSimulationModifier(impulseCount: change, axis: axis, anchor: anchor, anchorZ: anchorZ, perspective: perspective, additionalSpeed: speedBoost, rate: rate)
         }
     }
 }
@@ -62,6 +67,8 @@ internal struct SpinSimulationModifier: ViewModifier, Simulative {
     var anchorZ: CGFloat
 
     var perspective: CGFloat
+
+    var additionalSpeed: CGFloat
 
     var rate: AnyChangeEffect.SpinRate
 
@@ -120,7 +127,7 @@ internal struct SpinSimulationModifier: ViewModifier, Simulative {
 
         if abs(angleVelocity.degrees) > 240 {
             newValue = angle.degrees + angleVelocity.degrees * step
-            newVelocity = angleVelocity.degrees * 0.99
+            newVelocity = angleVelocity.degrees * (0.99 - self.additionalSpeed)
             targetAngle = .degrees((angle.degrees / 360.0).rounded(.up) * 360.0)
         } else if spring.response > 0 {
             (newValue, newVelocity) = spring.value(
