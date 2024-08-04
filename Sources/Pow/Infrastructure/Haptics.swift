@@ -5,7 +5,14 @@ import CoreHaptics
 
 internal struct Haptics {
     private static var engine: CHHapticEngine? = {
-        return try? CHHapticEngine()
+        let engine = try? CHHapticEngine()
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { _ in
+            engine?.stop()
+        }
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { _ in
+            try? engine?.start()
+        }
+        return engine
     }()
 
     private static var supportsHaptics = CHHapticEngine.capabilitiesForHardware().supportsHaptics
