@@ -5,8 +5,21 @@ import CoreHaptics
 
 internal struct Haptics {
     private static var engine: CHHapticEngine? = {
-        return try? CHHapticEngine()
+        let engine = try? CHHapticEngine()
+        addHapticEngineObservers()
+        return engine
     }()
+  
+    private static func addHapticEngineObservers() {
+        // Without stopping the CHHapticEngine when entering background mode, haptics are not played when the app enters the foreground.
+        // See https://github.com/EmergeTools/Pow/issues/69
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { _ in
+            engine?.stop()
+        }
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { _ in
+            try? engine?.start()
+        }
+    }
 
     private static var supportsHaptics = CHHapticEngine.capabilitiesForHardware().supportsHaptics
 
