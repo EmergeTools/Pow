@@ -1,6 +1,7 @@
 import SwiftUI
 import simd
 
+#if !os(watchOS)
 public extension AnyTransition.MovingParts {
     /// A transition that inserts by rotating the view towards the viewer, and
     /// removes by rotating the view away from the viewer.
@@ -64,6 +65,7 @@ public extension AnyTransition.MovingParts {
         )
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 @available(iOS 15.0, *)

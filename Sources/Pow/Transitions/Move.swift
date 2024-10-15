@@ -1,6 +1,7 @@
 import SwiftUI
 import simd
 
+#if !os(watchOS)
 public extension AnyTransition.MovingParts {
     /// A transition that moves the view from the specified edge of the on
     /// insertion and towards it on removal.
@@ -35,7 +36,9 @@ public extension AnyTransition.MovingParts {
         )
     }
 }
+#endif
 
+#if !os(watchOS)
 internal struct Move: GeometryEffect, Animatable {
     /// Translation is relative, depth is ignored, anchor is always
     /// `UnitPoint(0.5, 0.5)`.
@@ -90,6 +93,7 @@ internal struct Move: GeometryEffect, Animatable {
         return ProjectionTransform((((offset * translation) * rotation) * scale) * offset.inverse)
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 @available(iOS 15.0, *)
