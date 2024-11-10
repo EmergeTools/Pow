@@ -1,6 +1,7 @@
 import SwiftUI
 import simd
 
+#if !os(watchOS)
 internal struct Transform3DEffect: GeometryEffect, Animatable {
     var animatableData: AnimatablePair<TRS, AnimatablePair<Anchor3D, Double>> = .zero
 
@@ -69,7 +70,9 @@ internal struct Transform3DEffect: GeometryEffect, Animatable {
         ShadedTransform3DEffect(animatableData: animatableData, lightSource: lightSource)
     }
 }
+#endif
 
+#if !os(watchOS)
 extension Transform3DEffect {
     internal struct Anchor3D: Equatable {
         var xy: UnitPoint = .center
@@ -77,7 +80,9 @@ extension Transform3DEffect {
         var z: Double = 0
     }
 }
+#endif
 
+#if !os(watchOS)
 extension Transform3DEffect.Anchor3D: VectorArithmetic {
     mutating func scale(by rhs: Double) {
         xy.x *= rhs
@@ -111,7 +116,9 @@ extension Transform3DEffect.Anchor3D: VectorArithmetic {
         return result
     }
 }
+#endif
 
+#if !os(watchOS)
 internal struct ShadedTransform3DEffect: ViewModifier, Animatable {
     var animatableData: Transform3DEffect.AnimatableData
 
@@ -147,6 +154,7 @@ internal struct ShadedTransform3DEffect: ViewModifier, Animatable {
             .modifier(Transform3DEffect(animatableData: animatableData))
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 @available(iOS 16.0, *)

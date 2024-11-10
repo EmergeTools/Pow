@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if !os(watchOS)
 public extension AnyChangeEffect {
     /// The rate of the spin effect.
     enum SpinRate {
@@ -52,7 +53,9 @@ public extension AnyChangeEffect {
         }
     }
 }
+#endif
 
+#if !os(watchOS)
 internal struct SpinSimulationModifier: ViewModifier, Simulative {
     var impulseCount: Int
 
@@ -150,6 +153,7 @@ internal struct SpinSimulationModifier: ViewModifier, Simulative {
         }
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 struct SpinSimulation_Previews: PreviewProvider {

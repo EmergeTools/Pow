@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if !os(watchOS)
 public extension AnyChangeEffect {
     /// An effect that wiggles the view when a change happens.
     static var wiggle: AnyChangeEffect {
@@ -30,7 +31,9 @@ public extension AnyChangeEffect {
         })
     }
 }
+#endif
 
+#if !os(watchOS)
 internal struct WiggleSimulationModifier: ViewModifier, Simulative {
     // TODO: Not used, remove from protocol
     var initialVelocity: CGFloat = 0
@@ -104,6 +107,7 @@ internal struct WiggleSimulationModifier: ViewModifier, Simulative {
         wiggleCount = clamp(0, wiggleCount - 2 * (step / phaseLength), .infinity)
     }
 }
+#endif
 
 
 #if os(iOS) && DEBUG

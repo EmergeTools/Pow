@@ -1,6 +1,7 @@
 import simd
 import SwiftUI
 
+#if !os(watchOS)
 internal extension ProjectionTransform {
     init(_ m: simd_double4x4) {
         let d = CATransform3D(
@@ -13,3 +14,4 @@ internal extension ProjectionTransform {
         self.init(d)
     }
 }
+#endif
