@@ -2,6 +2,10 @@
 
 # Pow
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FEmergeTools%2FPow%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/EmergeTools/Pow)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FEmergeTools%2FPow%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/EmergeTools/Pow)
+[![](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fwww.emergetools.com%2Fapi%2Fv2%2Fpublic_new_build%3FexampleId%3Dpow.Pow%26platform%3Dios%26badgeOption%3Dversion_and_max_install_size%26buildType%3Drelease&query=$.badgeMetadata&label=Pow&logo=apple)](https://www.emergetools.com/app/example/ios/pow.Pow/release?utm_campaign=badge-data)
+
 Delightful SwiftUI effects for your app. 
 
 [Check out other open source projects from Emerge Tools](https://www.emergetools.com/open-source)
