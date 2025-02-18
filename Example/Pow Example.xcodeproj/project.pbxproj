@@ -721,7 +721,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.movingparts.Pow-Example.Debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -753,7 +753,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.movingparts.Pow-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -787,7 +787,7 @@
 			repositoryURL = "https://github.com/EmergeTools/SnapshotPreviews-iOS";
 			requirement = {
 				kind = exactVersion;
-				version = 0.7.6;
+				version = 0.10.21;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

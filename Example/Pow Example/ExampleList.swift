@@ -109,21 +109,21 @@ struct ExampleList: View {
     }
 }
 
-struct PresentInfoAction {
-    var action: (any Example.Type) -> ()
+struct PresentInfoAction: Sendable {
+    var action: @MainActor (any Example.Type) -> ()
 
-    init(action: @escaping (any Example.Type) -> Void) {
+    init(action: @escaping @MainActor (any Example.Type) -> Void) {
         self.action = action
     }
 
-    func callAsFunction<T: Example>(_ type: T.Type) {
+    @MainActor func callAsFunction<T: Example>(_ type: T.Type) {
         action(type)
     }
 }
 
 extension EnvironmentValues {
-    struct PresentInfoActionKey: EnvironmentKey {
-        static var defaultValue: PresentInfoAction? = nil
+  struct PresentInfoActionKey: EnvironmentKey {
+      static let defaultValue: PresentInfoAction? = nil
     }
 
     var presentInfoAction: PresentInfoAction? {
