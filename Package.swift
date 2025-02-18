@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -22,7 +22,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-      .package(url: "https://github.com/EmergeTools/SnapshotPreviews-iOS", exact: "0.7.6")
+      .package(url: "https://github.com/EmergeTools/SnapshotPreviews-iOS", exact: "0.10.21")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -31,9 +31,10 @@ let package = Package(
             name: "Pow",
             dependencies: enablePreviews ? [.product(name: "SnapshotPreferences", package: "SnapshotPreviews-iOS", condition: .when(platforms: [.iOS]))] : [],
             resources: [.process("Assets.xcassets")],
-            swiftSettings: enablePreviews ? [.define("EMG_PREVIEWS")] : nil),
+            swiftSettings: enablePreviews ? [.define("EMG_PREVIEWS"), .swiftLanguageMode(.v5)] : [.swiftLanguageMode(.v5)]),
         .testTarget(
             name: "PowTests",
             dependencies: ["Pow"]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
