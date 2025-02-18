@@ -787,7 +787,7 @@
 			repositoryURL = "https://github.com/EmergeTools/SnapshotPreviews-iOS";
 			requirement = {
 				kind = exactVersion;
-				version = 0.7.6;
+				version = 0.10.21;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
