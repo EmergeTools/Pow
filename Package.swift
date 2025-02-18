@@ -31,7 +31,7 @@ let package = Package(
             name: "Pow",
             dependencies: enablePreviews ? [.product(name: "SnapshotPreferences", package: "SnapshotPreviews-iOS", condition: .when(platforms: [.iOS]))] : [],
             resources: [.process("Assets.xcassets")],
-            swiftSettings: enablePreviews ? [.define("EMG_PREVIEWS"), .swiftLanguageMode(.v5)] : [.swiftLanguageMode(.v5)]),
+            swiftSettings: enablePreviews ? [.define("EMG_PREVIEWS")] : nil),
         .testTarget(
             name: "PowTests",
             dependencies: ["Pow"]),
