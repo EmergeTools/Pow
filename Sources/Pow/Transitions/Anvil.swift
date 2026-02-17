@@ -109,7 +109,7 @@ internal struct Anvil: ViewModifier, ProgressableAnimation, AnimatableModifier {
                                 let offsetX = maxOffsetX * (relativeX - 0.5) * 2 * .random(in: 0.8 ... 1.2, using: &rng)
                                 let offsetY = CGFloat.random(in: -maxOffsetY / 2 ... maxOffsetY / 2, using: &rng) + (t * t) * -50
 
-                                var scale = 1 + 0.6 * (1 - pow(sin(relativeX * .pi), 0.4)) + .random(in: 0 ... 0.2, using: &rng)
+								var scale = 1 + 0.6 * (1 - pow(sin(relativeX * CGFloat.pi), 0.4)) + .random(in: 0 ... 0.2, using: &rng)
                                 scale *= 0.8 + (dustT * 0.2)
                                 scale /= 3
                                 scale *= 1 - pow(2, -50 * dustT)
@@ -188,7 +188,7 @@ internal struct Anvil: ViewModifier, ProgressableAnimation, AnimatableModifier {
                                 ctx.translateBy(x: center.x, y: center.y)
                                 ctx.scaleBy(x: scale, y: scale)
 
-                                ctx.opacity = Double(pow(sin(speckT * .pi), 0.2))
+                                ctx.opacity = Double(pow(sin(speckT * CGFloat.pi), 0.2))
                                 ctx.fill(speck, with: .color(Color(white: .random(in: 0.75 ... 0.9, using: &rng))))
                             }
                         }
