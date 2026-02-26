@@ -1,6 +1,7 @@
 #if !os(tvOS)
 import SwiftUI
 
+@available(watchOS 9.0, *)
 struct AngleControl<Label: View>: View {
     @Binding
     var angle: Angle
@@ -81,6 +82,7 @@ struct AngleControl<Label: View>: View {
     }
 }
 
+@available(watchOS 9.0, *)
 extension AngleControl where Label == Text {
     init(_ title: some StringProtocol, angle: Binding<Angle>) {
         self._angle = angle
@@ -106,6 +108,7 @@ extension AngleControl where Label == Text {
     }
 }
 
+@available(watchOS 9.0, *)
 struct AngleControl_Previews: PreviewProvider {
     struct Preview: View {
         @State var angle: Angle = .zero

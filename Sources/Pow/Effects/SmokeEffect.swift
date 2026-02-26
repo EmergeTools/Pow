@@ -4,6 +4,7 @@ import simd
 import SnapshotPreferences
 #endif
 
+#if !os(watchOS)
 public extension AnyConditionalEffect {
     /// An effect that emits smoke from the view.
     static var smoke: AnyConditionalEffect {
@@ -21,7 +22,9 @@ public extension AnyConditionalEffect {
         )
     }
 }
+#endif
 
+#if !os(watchOS)
 private struct SmokeEffect: ViewModifier, Continuous {
     var isActive: Bool
 
@@ -69,6 +72,7 @@ private struct SmokeEffect: ViewModifier, Continuous {
         }
     }
 }
+#endif
 
 #if os(iOS) || os(visionOS) || os(tvOS)
 private class EmitterView: UIView {
@@ -108,6 +112,7 @@ private class EmitterView: NSView {
 }
 #endif
 
+#if !os(watchOS)
 private struct SmokeLayerView: ViewRepresentable {
     var size: CGSize
 
@@ -171,8 +176,9 @@ private struct SmokeLayerView: ViewRepresentable {
         view.emitterLayer.lifetime = isActive ? 1 : 0
     }
 }
+#endif
 
-#if DEBUG && !os(tvOS)
+#if DEBUG && !os(tvOS) && !os(watchOS)
 struct ContinuousParticleEffect_Previews: PreviewProvider {
     private struct Preview: View {
         @State

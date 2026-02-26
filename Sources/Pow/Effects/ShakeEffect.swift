@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if !os(watchOS)
 public extension AnyChangeEffect {
     /// An effect that shakes the view when a change happens.
     static var shake: AnyChangeEffect {
@@ -32,7 +33,9 @@ public extension AnyChangeEffect {
         }
     }
 }
+#endif
 
+#if !os(watchOS)
 internal struct ShakeSimulationModifier: ViewModifier, Simulative {
     // TODO: Not used, remove from protocol
     var initialVelocity: CGFloat = 0
@@ -102,6 +105,7 @@ internal struct ShakeSimulationModifier: ViewModifier, Simulative {
         shakeCount = clamp(0, shakeCount - 2 * (step / phaseLength), .infinity)
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 struct ShakeSimulation_Previews: PreviewProvider {

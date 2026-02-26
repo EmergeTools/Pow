@@ -1,6 +1,7 @@
 import SwiftUI
 import simd
 
+#if !os(watchOS)
 public extension AnyTransition.MovingParts {
     /// A three-dimensional transition from the back of the towards the front
     /// during insertion and from the front towards the back during removal.
@@ -21,6 +22,7 @@ public extension AnyTransition.MovingParts {
         )
     }
 }
+#endif
 
 #if os(iOS) && DEBUG
 @available(iOS 15.0, *)
