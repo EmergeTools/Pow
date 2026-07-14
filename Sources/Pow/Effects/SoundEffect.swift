@@ -27,7 +27,7 @@ public struct SoundEffect: Hashable, Sendable {
     /// SoundEffect.audioSession = AVAudioSession.sharedInstance()
     /// #endif
     /// ```
-    static var audioSession: AVAudioSession?
+    public static var audioSession: AVAudioSession?
 
     var urls: [URL]
 
